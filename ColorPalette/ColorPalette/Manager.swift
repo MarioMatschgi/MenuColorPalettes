@@ -24,7 +24,7 @@ class Manager {
                 continue
             }
             let colors = colorString?.components(separatedBy: ", ")
-            let color = SerializableColor(red: Double(colors![0])!, green: Double(colors![1])!, blue: Double(colors![2])!, alpha: 1)
+            let color = SerializableColor(red: Double(colors![0])!/255, green: Double(colors![1])!/255, blue: Double(colors![2])!/255, alpha: 1)
             
             
             var nameString = element.slice(from: "<span", to: "/span>")
@@ -92,6 +92,16 @@ class Manager {
         return ""
     }
     
+    static func GetColorNameByIndex(idx: Int, palette: Palette) -> String {
+        for (colName, col) in palette.palColors {
+            if col.colIdx == idx {
+                return colName
+            }
+        }
+        
+        return ""
+    }
+    
     static func AddPalette(palette: Palette) {
         var palToSave = palette
         palToSave.palIdx = palettes.count
@@ -134,7 +144,7 @@ class Manager {
     }
     
     static var window: NSWindow? = nil
-    static func OpenWindow(type: WindowType) {
+    static func OpenWindow(type: WindowType, palette: Palette? = nil) {
         // Create the window and set the content view.
         if window != nil {
             window?.close()
@@ -147,25 +157,32 @@ class Manager {
         window?.isReleasedWhenClosed = false
         window?.center()
         window?.setFrameAutosaveName("\(type)")
-        window?.contentView = GetContentView(type: type)
+        window?.contentView = GetContentView(type: type, palette: palette)
         window?.makeKeyAndOrderFront(nil)
         window?.level = .floating
-        window?.title = GetWindowTitle(type: type)
+        window?.title = GetWindowTitle(type: type, palette: palette)
+        
+        window?.makeKey()
     }
-    private static func GetContentView(type: WindowType) -> NSView {
+    private static func GetContentView(type: WindowType, palette: Palette?) -> NSView {
         switch type {
         case .PaletteManagingWindow:
             return NSHostingView(rootView: EditContentView())
+        case .PaletteViewWindow:
+            return NSHostingView(rootView: PaletteContentView(palette: palette!))
         }
     }
-    private static func GetWindowTitle(type: WindowType) -> String {
+    private static func GetWindowTitle(type: WindowType, palette: Palette?) -> String {
         switch type {
         case .PaletteManagingWindow:
             return "Manage Palettes"
+        case .PaletteViewWindow:
+            return "View Palette \((palette?.palName)!)"
         }
     }
     
     enum WindowType {
         case PaletteManagingWindow
+        case PaletteViewWindow
     }
 }

@@ -85,10 +85,8 @@ struct EditContentView: View {
     }
     
     func AskDeletePalette(paletteName: String) {
-        print("ASD")
         self.paletteToDelete = paletteName
         self.showingAlert = true
-//        Alert(title: Text("Important message"), message: Text("Wear sunscreen"), dismissButton: .default(Text("Got it!")))
     }
 }
 

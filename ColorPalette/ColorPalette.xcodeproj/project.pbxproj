@@ -13,7 +13,7 @@
 		AC31F41D252CCC92007BDF39 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = AC31F41C252CCC92007BDF39 /* Assets.xcassets */; };
 		AC31F420252CCC92007BDF39 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = AC31F41F252CCC92007BDF39 /* Preview Assets.xcassets */; };
 		AC31F423252CCC92007BDF39 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = AC31F421252CCC92007BDF39 /* Main.storyboard */; };
-		AC67C398252E5E2B00C9E622 /* PaletteViews.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC67C397252E5E2B00C9E622 /* PaletteViews.swift */; };
+		AC67C3A1252E726500C9E622 /* PaletteContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC67C3A0252E726500C9E622 /* PaletteContentView.swift */; };
 		AC746702252CF8310070B6CC /* TestHtml.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC746701252CF8310070B6CC /* TestHtml.swift */; };
 		AC746705252CF8860070B6CC /* Extentions.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC746704252CF8860070B6CC /* Extentions.swift */; };
 		AC74670B252CFB840070B6CC /* MenuContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC74670A252CFB840070B6CC /* MenuContentView.swift */; };
@@ -29,7 +29,7 @@
 		AC31F422252CCC92007BDF39 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		AC31F424252CCC92007BDF39 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		AC31F425252CCC92007BDF39 /* ColorPalette.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = ColorPalette.entitlements; sourceTree = "<group>"; };
-		AC67C397252E5E2B00C9E622 /* PaletteViews.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaletteViews.swift; sourceTree = "<group>"; };
+		AC67C3A0252E726500C9E622 /* PaletteContentView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PaletteContentView.swift; sourceTree = "<group>"; };
 		AC746701252CF8310070B6CC /* TestHtml.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestHtml.swift; sourceTree = "<group>"; };
 		AC746704252CF8860070B6CC /* Extentions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extentions.swift; sourceTree = "<group>"; };
 		AC74670A252CFB840070B6CC /* MenuContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuContentView.swift; sourceTree = "<group>"; };
@@ -69,7 +69,7 @@
 				AC2578E5252D10010051517F /* Manager.swift */,
 				AC31F41A252CCC8F007BDF39 /* EditContentView.swift */,
 				AC74670A252CFB840070B6CC /* MenuContentView.swift */,
-				AC67C397252E5E2B00C9E622 /* PaletteViews.swift */,
+				AC67C3A0252E726500C9E622 /* PaletteContentView.swift */,
 				AC746704252CF8860070B6CC /* Extentions.swift */,
 				AC746701252CF8310070B6CC /* TestHtml.swift */,
 				AC31F41C252CCC92007BDF39 /* Assets.xcassets */,
@@ -164,8 +164,8 @@
 				AC31F41B252CCC8F007BDF39 /* EditContentView.swift in Sources */,
 				AC746702252CF8310070B6CC /* TestHtml.swift in Sources */,
 				AC74670B252CFB840070B6CC /* MenuContentView.swift in Sources */,
+				AC67C3A1252E726500C9E622 /* PaletteContentView.swift in Sources */,
 				AC31F419252CCC8F007BDF39 /* AppDelegate.swift in Sources */,
-				AC67C398252E5E2B00C9E622 /* PaletteViews.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

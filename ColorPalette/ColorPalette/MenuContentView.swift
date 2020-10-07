@@ -51,7 +51,7 @@ struct MenuContentView: View {
                             ForEach (0..<GetForBounds(row: row), id: \.self) {
                                 col in
                                 VStack {
-                                    Button(action: { }, label: {
+                                    Button(action: { Manager.OpenWindow(type: .PaletteViewWindow, palette: Manager.palettes[Manager.GetPaletteNameByIndex(idx: row * paletteColumns + col)]) }, label: {
                                         VStack{ // ToDo: Replace with custom "Preview Stack"
                                             
                                         }.frame(width: cellSize, height: cellSize).background(RoundedRectangle(cornerRadius: panelRadius).fill(aColor)) // ToDo: Preview as view of background
