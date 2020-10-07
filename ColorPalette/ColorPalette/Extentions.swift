@@ -8,10 +8,27 @@
 import SwiftUI
 import Foundation
 
-struct ColorData: Codable {
-    var color: SerializableColor
-    var idx: Int
+struct Palette: Codable {
+    var palIdx: Int
+    var palName: String
+    var palColors: [String: PaletteColor]
 }
+
+struct PaletteColor: Codable {
+    var colIdx: Int
+    var colName: String
+    var colColor: SerializableColor
+}
+
+//struct PaletteData: Codable {
+//    var idx: Int
+//    var palette: [String: ColorData]
+//}
+//
+//struct ColorData: Codable {
+//    var idx: Int
+//    var color: SerializableColor
+//}
 
 struct SerializableColor: Codable {
     var red: Double
