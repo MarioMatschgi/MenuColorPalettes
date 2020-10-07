@@ -16,6 +16,9 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 
 
     func applicationDidFinishLaunching(_ aNotification: Notification) {
+        Manager.LoadPalettes()
+        
+        
         // Create the SwiftUI view that provides the window contents.
         let contentView = MenuContentView()
         
@@ -32,8 +35,6 @@ class AppDelegate: NSObject, NSApplicationDelegate {
              button.image = NSImage(named: "Icon")
              button.action = #selector(togglePopover(_:))
         }
-
-        Manager.LoadPalettes()
     }
     
     @objc func togglePopover(_ sender: AnyObject?) {

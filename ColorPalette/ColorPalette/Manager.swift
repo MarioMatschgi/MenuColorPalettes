@@ -40,6 +40,8 @@ class Manager {
     }
     
     static func LoadPalettes() {
+        palettes = [String: Palette]()
+        
         let fm = FileManager.default
         let dir = assetFilesDirectory(name: "Palettes", shouldCreate: true)
         
@@ -48,6 +50,7 @@ class Manager {
             let items = try fm.contentsOfDirectory(atPath: (dir?.path)!)
 
             for item in items {
+                print("LOL: \(item)")
                 if !item.hasSuffix(".json") {
                     continue
                 }
@@ -71,24 +74,32 @@ class Manager {
         
         print("Successfully loaded all(\(palettes.count)) color palettes!")
         
-//        MenuContentView.instance?.palCount = palettes.count
+        SendPublisher()
+    }
+    
+    private static func SendPublisher() {
+        MenuContentView.instance?.palCountPublisher.send(palettes.count)
+        EditContentView.instance?.palCountPublisher.send(palettes.count)
     }
     
     static func GetPaletteNameByIndex(idx: Int) -> String {
-//        for (pal, dict) in palettes {
-//            for (name, colorData) in dict {
-//                if
-//            }
-//        }
+        for (palName, pal) in palettes {
+            if pal.palIdx == idx {
+                return palName
+            }
+        }
         
         return ""
     }
     
     static func AddPalette(palette: Palette) {
+        var palToSave = palette
+        palToSave.palIdx = palettes.count
+        
         // Encode to JSON
         var jsonData = ""
         let encoder = JSONEncoder()
-        if let jsonDataL = try? encoder.encode(palette) {
+        if let jsonDataL = try? encoder.encode(palToSave) {
             if let jsonString = String(data: jsonDataL, encoding: .utf8) {
                 jsonData = jsonString
             }
@@ -98,7 +109,7 @@ class Manager {
         let dataToSave = jsonData
         let url = assetFilesDirectory(name: "Palettes", shouldCreate: true)
         do {
-            try dataToSave.write(to: (url?.appendingPathComponent("\(palette.palName).json"))!, atomically: true, encoding: .utf8)
+            try dataToSave.write(to: (url?.appendingPathComponent("\(palToSave.palName).json"))!, atomically: true, encoding: .utf8)
         } catch {
             // Handle error
         }

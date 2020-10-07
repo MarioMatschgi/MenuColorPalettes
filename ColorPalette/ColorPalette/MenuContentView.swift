@@ -6,74 +6,84 @@
 //
 
 import SwiftUI
+import Combine
 import Foundation
 
 struct MenuContentView: View {
     static var instance: MenuContentView? = nil
     
+    
     @State var paletteName = ""
     @State var paletteCode = ""
     
-    let accentColor = Color(red: 52/255, green: 152/255, blue: 219/255)
-    let aColor = Color(red: 0/255, green: 152/255, blue: 0/255)
     
+    let accentColor = Color(red: 52/255, green: 152/255, blue: 219/255)
+    
+    // Grid stuff
+    @State var palCount = Manager.palettes.count
+    var palCountPublisher = PassthroughSubject<Int, Never>()
     let panelPadding = CGFloat(10)
     let panelMargin = CGFloat(10)
     let panelRadius = CGFloat(25)
-    
+    let cellSize = CGFloat(100)
+    let cellPadding = CGFloat(10)
     let paletteColumns = 4
-    
+    let aColor = Color(red: 0/255, green: 152/255, blue: 0/255)
     func GetForBounds(row: Int) -> Int {
-        return min(Manager.palettes.count-(row * paletteColumns), paletteColumns)
+        return min(palCount-(row * paletteColumns), paletteColumns)
     }
-    init() { MenuContentView.instance = self }
+    
+    
+    init() {
+        MenuContentView.instance = self;
+    }
     
     var body: some View {
         VStack {
             VStack {
-                Text("Color palettes (\(Manager.palettes.count)")
+                Text("Color palettes (\(palCount))")
+                Button("Manage palettes", action: { Manager.OpenWindow(type: .PaletteManagingWindow) })
                 
                 VStack {
-                    ForEach (0..<(Manager.palettes.count / paletteColumns) + 1) {
+                    ForEach (0..<(palCount / paletteColumns) + 1, id: \.self) {
                         row in
                         HStack {
-                            ForEach (0..<GetForBounds(row: row)) {
+                            ForEach (0..<GetForBounds(row: row), id: \.self) {
                                 col in
                                 VStack {
-                                    Button("Click", action: {}).buttonStyle(BorderlessButtonStyle()).frame(width: 100, height: 100).background(RoundedRectangle(cornerRadius: panelRadius).fill(aColor)) // ToDo: Preview as view of background
-//                                    Text("R: \(row) C: \(col) RC: \(row * paletteColumns + col)")
-                                    Text("A\(Manager.GetPaletteNameByIndex(idx: row * paletteColumns + col))")
-                                }
+                                    Button(action: { }, label: {
+                                        VStack{ // ToDo: Replace with custom "Preview Stack"
+                                            
+                                        }.frame(width: cellSize, height: cellSize).background(RoundedRectangle(cornerRadius: panelRadius).fill(aColor)) // ToDo: Preview as view of background
+                                    }).buttonStyle(PlainButtonStyle()).frame(width: cellSize, height: cellSize).padding(EdgeInsets(top: 0, leading: 0, bottom: 10, trailing: 0))
+                                    Text("\(Manager.GetPaletteNameByIndex(idx: row * paletteColumns + col))")
+                                }.padding(cellPadding)
                             }
                         }
                     }
                 }
-                
-                Text("GRID WITH PALETES HERE")
-            }
-            
-            
-            
-            HStack {
-                Button("Manage palettes", action: { Manager.OpenWindow(type: .PaletteManagingWindow) })
             }
             
             Spacer()
             
             VStack {
-                Text("Settings")
-                Button("CLICK", action: {})
-                Button("Reload palettes", action: { Manager.LoadPalettes() })
-                Button("QUIT", action: { exit(0) })
+                Text("Options")
+                HStack {
+                    Button("Open palettes folder", action: { ShowInFinder(url: assetFilesDirectory(name: "Palettes", shouldCreate: true)) })
+                    Button("QUIT", action: { exit(0) })
+                    Button("Reload palettes", action: { Manager.LoadPalettes() })
+                }
             }
-            
-            // ToDo: Quit Button
             
             VStack {
                 Text("MenuColorPalettes © 2020 Mario Elsnig & Peter Elsnig")
                 Text("Default color palettes from flatuicolors.com")
             }
-        }.padding(panelPadding).frame(maxWidth: .infinity, maxHeight: .infinity).background(RoundedRectangle(cornerRadius: panelRadius).fill(accentColor)).padding(panelMargin)
+        }.padding(panelPadding).frame(maxWidth: .infinity, maxHeight: .infinity)/*.background(RoundedRectangle(cornerRadius: panelRadius).fill(accentColor))*/.padding(panelMargin)
+        .onReceive(palCountPublisher, perform: {
+            newPalCount in
+            self.palCount = newPalCount
+        })
     }
 }
 

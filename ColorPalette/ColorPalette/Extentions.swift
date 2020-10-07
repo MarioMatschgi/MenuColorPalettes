@@ -50,6 +50,12 @@ extension String {
         }
     }
 }
+
+func ShowInFinder(url: URL?){
+    guard let url = url else { return }
+
+    NSWorkspace.shared.activateFileViewerSelecting([url])
+}
 //extension UIColor {
 //    public convenience init?(hex: String) {
 //        let r, g, b, a: CGFloat
