@@ -50,7 +50,6 @@ class Manager {
             let items = try fm.contentsOfDirectory(atPath: (dir?.path)!)
 
             for item in items {
-                print("LOL: \(item)")
                 if !item.hasSuffix(".json") {
                     continue
                 }
@@ -74,7 +73,17 @@ class Manager {
         
         print("Successfully loaded all(\(palettes.count)) color palettes!")
         
+        Manager.LoadUserDefaults()
+        
         SendPublisher()
+    }
+    
+    static func LoadUserDefaults() {
+        for (palName, _) in palettes {
+            if UserDefaults.standard.object(forKey: "\(palName).colFormatIdx") == nil {
+                UserDefaults.standard.setValue(0, forKey: "\(palName).colFormatIdx")
+            }
+        }
     }
     
     private static func SendPublisher() {
@@ -143,10 +152,17 @@ class Manager {
         LoadPalettes()
     }
     
+    static func RenamePalette(oldName: String, newName: String) {
+        var palette = palettes[oldName]
+        palette?.palName = newName
+        RemovePalette(name: oldName)
+        AddPalette(palette: palette!)
+    }
+    
     static var window: NSWindow? = nil
     static func OpenWindow(type: WindowType, palette: Palette? = nil) {
         // Create the window and set the content view.
-        if window != nil {
+        if window != nil && type != .PaletteViewWindow {
             window?.close()
         }
         
@@ -156,11 +172,11 @@ class Manager {
             backing: .buffered, defer: false)
         window?.isReleasedWhenClosed = false
         window?.center()
-        window?.setFrameAutosaveName("\(type)")
+        window?.title = GetWindowTitle(type: type, palette: palette)
+        window?.setFrameAutosaveName(window!.title)
         window?.contentView = GetContentView(type: type, palette: palette)
         window?.makeKeyAndOrderFront(nil)
         window?.level = .floating
-        window?.title = GetWindowTitle(type: type, palette: palette)
         
         window?.makeKey()
     }

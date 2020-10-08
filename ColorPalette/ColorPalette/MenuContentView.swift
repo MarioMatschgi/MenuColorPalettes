@@ -50,14 +50,21 @@ struct MenuContentView: View {
                         HStack {
                             ForEach (0..<GetForBounds(row: row), id: \.self) {
                                 col in
-                                VStack {
-                                    Button(action: { Manager.OpenWindow(type: .PaletteViewWindow, palette: Manager.palettes[Manager.GetPaletteNameByIndex(idx: row * paletteColumns + col)]) }, label: {
-                                        VStack{ // ToDo: Replace with custom "Preview Stack"
+                                Group {
+                                    let palette = Manager.palettes[Manager.GetPaletteNameByIndex(idx: row * paletteColumns + col)]
+                                    VStack {
+                                        Button(action: {
+                                                Manager.OpenWindow(type: .PaletteViewWindow, palette: Manager.palettes[Manager.GetPaletteNameByIndex(idx: row * paletteColumns + col)])
+                                        }, label: {
                                             
-                                        }.frame(width: cellSize, height: cellSize).background(RoundedRectangle(cornerRadius: panelRadius).fill(aColor)) // ToDo: Preview as view of background
-                                    }).buttonStyle(PlainButtonStyle()).frame(width: cellSize, height: cellSize).padding(EdgeInsets(top: 0, leading: 0, bottom: 10, trailing: 0))
-                                    Text("\(Manager.GetPaletteNameByIndex(idx: row * paletteColumns + col))")
-                                }.padding(cellPadding)
+                                            VStack {
+                                                PalettePreviewContentView(palette: palette!, previewSize: cellSize)
+                                            }.frame(width: cellSize, height: cellSize).cornerRadius(panelRadius)
+                                            
+                                        }).buttonStyle(PlainButtonStyle()).frame(width: cellSize, height: cellSize).padding(EdgeInsets(top: 0, leading: 0, bottom: 10, trailing: 0))
+                                        Text("\(palette!.palName)")
+                                    }.padding(cellPadding)
+                                }
                             }
                         }
                     }

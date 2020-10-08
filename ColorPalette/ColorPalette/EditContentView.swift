@@ -14,6 +14,7 @@ struct EditContentView: View {
     @State var paletteName = ""
     @State var paletteCode = ""
     
+    @State var popover: NSPopover!
     
     // Grid stuff
     @State var palCount = Manager.palettes.count
@@ -35,13 +36,17 @@ struct EditContentView: View {
     }
     
     
+    @State private var selection: Int = 0
+    
     @State private var showingAlert = false
     @State var paletteToDelete = ""
+    
+    
+    @State private var nameText: String = ""
     var body: some View {
         VStack {
             //
             Text("Color palettes (\(palCount))")
-            Text("Click palette to delete it")
             
             VStack {
                 ForEach (0..<(palCount / paletteColumns) + 1, id: \.self) {
@@ -49,15 +54,29 @@ struct EditContentView: View {
                     HStack {
                         ForEach (0..<GetForBounds(row: row), id: \.self) {
                             col in
-                            VStack {
-                                Button(action: { AskDeletePalette(paletteName: Manager.GetPaletteNameByIndex(idx: row * paletteColumns + col)) }) {
-                                    VStack{ // ToDo: Replace with custom "Preview Stack"
+                            
+                            Group {
+                                let palette = Manager.palettes[Manager.GetPaletteNameByIndex(idx: row * paletteColumns + col)]
+                                ZStack {
+                                    VStack {
+                                        PalettePreviewContentView(palette: palette!, previewSize: cellSize).frame(width: cellSize, height: cellSize).cornerRadius(panelRadius).padding(EdgeInsets(top: 0, leading: 0, bottom: 10, trailing: 0))
                                         
-                                    }.frame(width: cellSize, height: cellSize).background(RoundedRectangle(cornerRadius: panelRadius).fill(aColor)) // ToDo: Preview as view of background
-                                }.buttonStyle(PlainButtonStyle()).frame(width: cellSize, height: cellSize).padding(EdgeInsets(top: 0, leading: 0, bottom: 10, trailing: 0))
-                                
-                                Text("\(Manager.GetPaletteNameByIndex(idx: row * paletteColumns + col))")
-                            }.padding(cellPadding)
+//                                        Text("\(Manager.GetPaletteNameByIndex(idx: row * paletteColumns + col))")
+                                        TextField("\(palette!.palName)", text: $nameText, onCommit: {
+                                            print("NAME ÄNDERN \($nameText)")
+                                        })
+                                    }.padding(cellPadding)
+                                    
+                                    VStack(alignment: .leading) {
+                                        Button(action: { }) {
+                                            Text("X").foregroundColor(Color.red)
+                                        }.buttonStyle(PlainButtonStyle()).frame(width: 20, height: 20).background(Color.white).cornerRadius(panelRadius).overlay(
+                                            RoundedRectangle(cornerRadius: panelRadius)
+                                                .stroke(Color.black, lineWidth: 2)
+                                        )
+                                    }.frame(minWidth: 0, maxWidth: .infinity, minHeight: 0, maxHeight: .infinity, alignment: .topTrailing)
+                                }.frame(width: cellSize, height: cellSize)
+                            }
                         }
                     }
                 }
@@ -82,11 +101,6 @@ struct EditContentView: View {
             newPalCount in
             self.palCount = newPalCount
         })
-    }
-    
-    func AskDeletePalette(paletteName: String) {
-        self.paletteToDelete = paletteName
-        self.showingAlert = true
     }
 }
 
