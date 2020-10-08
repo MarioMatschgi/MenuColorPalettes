@@ -17,14 +17,14 @@ struct PaletteViewContentView: View {
     
     // Grid stuff
     @State var colCount: Int = 20
+    @State var paletteColumns = 5
+    
     var palCountPublisher = PassthroughSubject<Int, Never>()
     let panelPadding = CGFloat(10)
     let panelMargin = CGFloat(10)
-    let panelRadius = CGFloat(25)
-    let cellSize = CGFloat(100)
+    @State var cellRadius = CGFloat(25)
+    @State var cellSize = CGFloat(100)
     let cellPadding = CGFloat(5)
-    let paletteColumns = 5
-    let aColor = Color(red: 0/255, green: 152/255, blue: 0/255)
     func GetForBounds(row: Int) -> Int {
         return min(colCount-(row * paletteColumns), paletteColumns)
     }
@@ -48,18 +48,22 @@ struct PaletteViewContentView: View {
     ]
     var body: some View {
         VStack {
-            //
-            Text("Color palette \(palette.palName)")
-            Text("\(palette.palColors.count)")
-            Picker(selection: $selection.onChange({ newSelection in
-                UserDefaults.standard.setValue(newSelection, forKey: "\(palette.palName).colFormatIdx")
-            }), label: Text("Copy format")) {
-                ForEach (0..<formats.count, id: \.self) {
-                    idx in
-                    Text(formats[idx].replacingOccurrences(of: "§", with: "")).tag(idx)
+            HStack {
+                Picker(selection: $selection.onChange({ newSelection in
+                    UserDefaults.standard.setValue(newSelection, forKey: "\(palette.palName).colFormatIdx")
+                }), label: Text("Copy format")) {
+                    ForEach (0..<formats.count, id: \.self) {
+                        idx in
+                        Text(formats[idx].replacingOccurrences(of: "§", with: "")).tag(idx)
+                    }
+                }.onAppear() {
+                    self.selection = UserDefaults.standard.integer(forKey: "\(palette.palName).colFormatIdx").clamped(to: 0...formats.count-2)
                 }
-            }.onAppear() {
-                self.selection = UserDefaults.standard.integer(forKey: "\(palette.palName).colFormatIdx").clamped(to: 0...formats.count-2)
+                Button(action: {
+                    Manager.OpenWindow(type: .PaletteViewOptions, palette: palette)
+                }) {
+                    Text("Palette options")
+                }
             }
             
             Spacer()
@@ -71,19 +75,24 @@ struct PaletteViewContentView: View {
                         ForEach (0..<GetForBounds(row: row), id: \.self) {
                             col in
                             VStack {
-                                Button(action: { CopyColor(colName: Manager.GetColorNameByIndex(idx: row * paletteColumns + col, palette: palette)) }) {
-                                    VStack{ // ToDo: Replace with custom "Preview Stack"
+                                Button(action: { print("c \(Manager.GetColorNameByIndex(idx: row * paletteColumns + col, palette: palette))"); CopyColor(colName: Manager.GetColorNameByIndex(idx: row * paletteColumns + col, palette: palette)) }) {
+                                    VStack {
                                         
-                                    }.frame(width: cellSize, height: cellSize).background(RoundedRectangle(cornerRadius: panelRadius).fill(GetCol(idx: row * paletteColumns + col)))
+                                    }.frame(width: cellSize, height: cellSize).background(RoundedRectangle(cornerRadius: cellRadius).fill(GetCol(idx: row * paletteColumns + col)))
                                 }.buttonStyle(PlainButtonStyle()).frame(width: cellSize, height: cellSize).padding(EdgeInsets(top: 0, leading: 0, bottom: 10, trailing: 0))
                                 
-                                Text("\(Manager.GetColorNameByIndex(idx: row * paletteColumns + col, palette: palette))")
-                            }.padding(cellPadding)
+                                Text("\(Manager.GetColorNameByIndex(idx: row * paletteColumns + col, palette: palette))").fixedSize(horizontal: false, vertical: true)
+                            }.frame(width: cellSize, height: cellSize + 50, alignment: .top).padding(cellPadding)
                         }
                     }
                 }
             }
-        }.fixedSize().padding(20)
+        }.fixedSize().padding()
+        .onAppear() {
+            self.paletteColumns = UserDefaults.standard.integer(forKey: "\(palette.palName).palColCount")
+            self.cellSize = CGFloat(UserDefaults.standard.integer(forKey: "\(palette.palName).palCellSize"))
+            self.cellRadius = CGFloat(self.cellSize / 100 * CGFloat(UserDefaults.standard.integer(forKey: "\(palette.palName).palCellRad")))
+        }
     }
     
     func GetCol(idx: Int) -> Color {
@@ -97,11 +106,11 @@ struct PaletteViewContentView: View {
             .replacingOccurrences(of: "§r01", with: "\(sColor!.red)")
             .replacingOccurrences(of: "§g01", with: "\(sColor!.green)")
             .replacingOccurrences(of: "§b01", with: "\(sColor!.blue)")
-            .replacingOccurrences(of: "§a01", with: "\(sColor!.alpha)")
+            .replacingOccurrences(of: "§a01", with: "\(sColor!.alpha == nil ? 1 : sColor!.alpha!)")
             .replacingOccurrences(of: "§r", with: "\(Int(sColor!.red * 255))")
             .replacingOccurrences(of: "§g", with: "\(Int(sColor!.green * 255))")
             .replacingOccurrences(of: "§b", with: "\(Int(sColor!.blue * 255))")
-            .replacingOccurrences(of: "§a", with: "\(Int(sColor!.alpha! * 255))")
+            .replacingOccurrences(of: "§a", with: "\(Int((sColor!.alpha == nil ? 1 : sColor!.alpha!) * 255))")
             .replacingOccurrences(of: "§#hex", with: "#\(sColor!.hex)")
             .replacingOccurrences(of: "§hex", with: "\(sColor!.hex)")
             .replacingOccurrences(of: "§#hexA", with: "#\(sColor!.hexA)")

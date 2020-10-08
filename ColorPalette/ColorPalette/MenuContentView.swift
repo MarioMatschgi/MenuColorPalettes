@@ -22,8 +22,6 @@ struct MenuContentView: View {
     // Grid stuff
     @State var palCount = Manager.palettes.count
     var palCountPublisher = PassthroughSubject<Int, Never>()
-    let panelPadding = CGFloat(10)
-    let panelMargin = CGFloat(10)
     let panelRadius = CGFloat(25)
     let cellSize = CGFloat(100)
     let cellPadding = CGFloat(10)
@@ -116,7 +114,7 @@ struct MenuContentView: View {
                 Text("MenuColorPalettes © 2020 Mario Elsnig & Peter Elsnig")
                 Text("Default color palettes from flatuicolors.com")
             }
-        }.padding(panelPadding).frame(maxWidth: .infinity, maxHeight: .infinity).padding(panelMargin).fixedSize()
+        }.fixedSize().padding()
         .onReceive(palCountPublisher, perform: {
             newPalCount in
             self.palCount = newPalCount

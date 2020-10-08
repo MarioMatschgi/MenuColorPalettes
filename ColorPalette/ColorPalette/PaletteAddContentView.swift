@@ -19,7 +19,7 @@ struct PaletteAddContentView: View {
             VStack {
                 TextField("Palette name", text: $nameText)
                 TextField("FlatUIColors code", text: $htmlText)
-            }.frame(minWidth: 200)
+            }.frame(width: 200)
             
             Button(action: {
                 Manager.AddPalette(palette: Manager.GeneratePaletteByHTML(name: nameText, html: htmlText))

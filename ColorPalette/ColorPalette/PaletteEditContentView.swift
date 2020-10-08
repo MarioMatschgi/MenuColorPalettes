@@ -52,7 +52,8 @@ struct PaletteEditContentView: View {
                 }.frame(maxWidth: .infinity, alignment: .center)
             }
             
-        }.padding().fixedSize().alert(isPresented: $showingAlert, content: {
+        }.padding().fixedSize()
+        .alert(isPresented: $showingAlert, content: {
             Alert(
               title: Text("Delete \"\(palette.palName)\"?"),
               message: Text("Do you want to delete \"\(palette.palName)\"?"), primaryButton: .destructive(Text("Delete"), action: {

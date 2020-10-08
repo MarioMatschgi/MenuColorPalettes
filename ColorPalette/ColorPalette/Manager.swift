@@ -83,6 +83,15 @@ class Manager {
             if UserDefaults.standard.object(forKey: "\(palName).colFormatIdx") == nil {
                 UserDefaults.standard.setValue(0, forKey: "\(palName).colFormatIdx")
             }
+            if UserDefaults.standard.object(forKey: "\(palName).palColCount") == nil {
+                UserDefaults.standard.setValue(5, forKey: "\(palName).palColCount")
+            }
+            if UserDefaults.standard.object(forKey: "\(palName).palCellSize") == nil {
+                UserDefaults.standard.setValue(100, forKey: "\(palName).palCellSize")
+            }
+            if UserDefaults.standard.object(forKey: "\(palName).palCellRad") == nil {
+                UserDefaults.standard.setValue(25, forKey: "\(palName).palCellRad")
+            }
         }
     }
     
@@ -189,6 +198,8 @@ class Manager {
             return NSHostingView(rootView: PaletteAddContentView())
         case .PaletteEditWindow:
             return NSHostingView(rootView: PaletteEditContentView(palette: palette!))
+        case .PaletteViewOptions:
+            return NSHostingView(rootView: PaletteViewOptionsContentView(palette: palette!))
         case .PaletteViewWindow:
             return NSHostingView(rootView: PaletteViewContentView(palette: palette!))
         }
@@ -199,6 +210,8 @@ class Manager {
             return "Add palette"
         case .PaletteEditWindow:
             return "Manage palettes"
+        case .PaletteViewOptions:
+            return "Palette options"
         case .PaletteViewWindow:
             return "View palette \((palette?.palName)!)"
         }
@@ -207,6 +220,7 @@ class Manager {
     enum WindowType {
         case PaletteAddWindow
         case PaletteEditWindow
+        case PaletteViewOptions
         case PaletteViewWindow
     }
 }

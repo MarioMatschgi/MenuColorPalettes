@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		AC060D85252F4B7200707227 /* PalettePreviewContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC060D84252F4B7200707227 /* PalettePreviewContentView.swift */; };
 		AC060D8C252FAB8D00707227 /* PaletteAddContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC060D8B252FAB8D00707227 /* PaletteAddContentView.swift */; };
+		AC060D90252FB1C800707227 /* PaletteViewOptionsContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC060D8F252FB1C800707227 /* PaletteViewOptionsContentView.swift */; };
 		AC2578E6252D10010051517F /* Manager.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC2578E5252D10010051517F /* Manager.swift */; };
 		AC31F419252CCC8F007BDF39 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC31F418252CCC8F007BDF39 /* AppDelegate.swift */; };
 		AC31F41B252CCC8F007BDF39 /* PaletteEditContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC31F41A252CCC8F007BDF39 /* PaletteEditContentView.swift */; };
@@ -24,6 +25,7 @@
 /* Begin PBXFileReference section */
 		AC060D84252F4B7200707227 /* PalettePreviewContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PalettePreviewContentView.swift; sourceTree = "<group>"; };
 		AC060D8B252FAB8D00707227 /* PaletteAddContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaletteAddContentView.swift; sourceTree = "<group>"; };
+		AC060D8F252FB1C800707227 /* PaletteViewOptionsContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaletteViewOptionsContentView.swift; sourceTree = "<group>"; };
 		AC2578E5252D10010051517F /* Manager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Manager.swift; sourceTree = "<group>"; };
 		AC31F415252CCC8F007BDF39 /* ColorPalette.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ColorPalette.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		AC31F418252CCC8F007BDF39 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -75,6 +77,7 @@
 				AC060D8B252FAB8D00707227 /* PaletteAddContentView.swift */,
 				AC31F41A252CCC8F007BDF39 /* PaletteEditContentView.swift */,
 				AC67C3A0252E726500C9E622 /* PaletteViewContentView.swift */,
+				AC060D8F252FB1C800707227 /* PaletteViewOptionsContentView.swift */,
 				AC060D84252F4B7200707227 /* PalettePreviewContentView.swift */,
 				AC746704252CF8860070B6CC /* Extentions.swift */,
 				AC746701252CF8310070B6CC /* TestHtml.swift */,
@@ -171,6 +174,7 @@
 				AC31F41B252CCC8F007BDF39 /* PaletteEditContentView.swift in Sources */,
 				AC746702252CF8310070B6CC /* TestHtml.swift in Sources */,
 				AC74670B252CFB840070B6CC /* MenuContentView.swift in Sources */,
+				AC060D90252FB1C800707227 /* PaletteViewOptionsContentView.swift in Sources */,
 				AC060D8C252FAB8D00707227 /* PaletteAddContentView.swift in Sources */,
 				AC67C3A1252E726500C9E622 /* PaletteViewContentView.swift in Sources */,
 				AC31F419252CCC8F007BDF39 /* AppDelegate.swift in Sources */,
