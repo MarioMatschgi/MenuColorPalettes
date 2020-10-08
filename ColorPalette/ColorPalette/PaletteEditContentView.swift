@@ -8,7 +8,7 @@
 import SwiftUI
 import Combine
 
-struct PaletteManageContentView: View {
+struct PaletteEditContentView: View {
     var palette: Palette
     
     @State private var showingAlert = false
@@ -26,8 +26,12 @@ struct PaletteManageContentView: View {
             VStack {
                 Text("Rename:").frame(maxWidth: .infinity, alignment: .leading)
                 HStack {
-                    TextField("Enter new name", text: $newNameText)
-                    Button(action: { }) {
+                    TextField("Enter new name", text: $newNameText).frame(minWidth: 200)
+                    Button(action: {
+                        Manager.RenamePalette(oldName: palette.palName, newName: newNameText)
+                        Manager.window?.close()
+                        self.newNameText = ""
+                    }) {
                         Text("Rename")
                     }
                 }
@@ -37,7 +41,9 @@ struct PaletteManageContentView: View {
             
             VStack {
                 Text("Delete:").frame(maxWidth: .infinity, alignment: .leading)
-                Button(action: { }) {
+                Button(action: {
+                    self.showingAlert = true
+                }) {
                     HStack {
                         Spacer()
                         Text("Delete").frame(maxWidth: .infinity)
@@ -49,17 +55,18 @@ struct PaletteManageContentView: View {
         }.padding().fixedSize().alert(isPresented: $showingAlert, content: {
             Alert(
               title: Text("Delete \"\(palette.palName)\"?"),
-              message: Text("Do you want to delete \"\(palette.palName)\"?"),
-                primaryButton: .destructive(Text("Delete"), action: { Manager.RemovePalette(name: palette.palName) }),
-              secondaryButton: .cancel(Text("Cancel"), action: {})
+              message: Text("Do you want to delete \"\(palette.palName)\"?"), primaryButton: .destructive(Text("Delete"), action: {
+                    Manager.RemovePalette(name: palette.palName)
+                    Manager.window?.close()
+                }), secondaryButton: .cancel(Text("Cancel"), action: { })
             )
         })
     }
 }
 
 
-struct PaletteManageContentView_Previews: PreviewProvider {
+struct PaletteEditContentView_Previews: PreviewProvider {
     static var previews: some View {
-        PaletteManageContentView(palette: Manager.GetPaletteByIndex(idx: 0))
+        PaletteEditContentView(palette: Manager.GetPaletteByIndex(idx: 0))
     }
 }

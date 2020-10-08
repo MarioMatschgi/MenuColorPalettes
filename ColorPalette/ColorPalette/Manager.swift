@@ -185,23 +185,28 @@ class Manager {
     }
     private static func GetContentView(type: WindowType, palette: Palette?) -> NSView {
         switch type {
-        case .PaletteManagingWindow:
-            return NSHostingView(rootView: PaletteManageContentView(palette: palette!))
+        case .PaletteAddWindow:
+            return NSHostingView(rootView: PaletteAddContentView())
+        case .PaletteEditWindow:
+            return NSHostingView(rootView: PaletteEditContentView(palette: palette!))
         case .PaletteViewWindow:
-            return NSHostingView(rootView: PaletteContentView(palette: palette!))
+            return NSHostingView(rootView: PaletteViewContentView(palette: palette!))
         }
     }
     private static func GetWindowTitle(type: WindowType, palette: Palette?) -> String {
         switch type {
-        case .PaletteManagingWindow:
-            return "Manage Palettes"
+        case .PaletteAddWindow:
+            return "Add palette"
+        case .PaletteEditWindow:
+            return "Manage palettes"
         case .PaletteViewWindow:
-            return "View Palette \((palette?.palName)!)"
+            return "View palette \((palette?.palName)!)"
         }
     }
     
     enum WindowType {
-        case PaletteManagingWindow
+        case PaletteAddWindow
+        case PaletteEditWindow
         case PaletteViewWindow
     }
 }

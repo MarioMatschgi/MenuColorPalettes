@@ -38,11 +38,15 @@ struct MenuContentView: View {
         MenuContentView.instance = self;
     }
     
+    @State private var showingAlert = false
+    @State private var paletteToDelete: Palette?
+    
     var body: some View {
         VStack {
             VStack {
                 Text("Color palettes (\(palCount))")
                 
+                // Grid
                 VStack {
                     ForEach (0..<(palCount / paletteColumns) + 1, id: \.self) {
                         row in
@@ -53,17 +57,44 @@ struct MenuContentView: View {
                                     let palette = Manager.palettes[Manager.GetPaletteNameByIndex(idx: row * paletteColumns + col)]
                                     VStack {
                                         Button(action: {
-                                            Manager.OpenWindow(type: .PaletteViewWindow, palette: Manager.palettes[Manager.GetPaletteNameByIndex(idx: row * paletteColumns + col)])
+                                            Manager.OpenWindow(type: .PaletteViewWindow, palette: palette)
                                         }, label: {
-                                            
                                             VStack {
                                                 PalettePreviewContentView(palette: palette!, previewSize: cellSize)
                                             }.frame(width: cellSize, height: cellSize).cornerRadius(panelRadius)
-                                            
                                         }).buttonStyle(PlainButtonStyle()).frame(width: cellSize, height: cellSize).padding(EdgeInsets(top: 0, leading: 0, bottom: 10, trailing: 0))
                                         Text("\(palette!.palName)")
-                                    }.padding(cellPadding)
+                                    }.padding(cellPadding).contextMenu(ContextMenu(menuItems: {
+                                        Button(action: {
+                                            Manager.OpenWindow(type: .PaletteEditWindow, palette: palette)
+                                        }) {
+                                            Text("Edit")
+                                        }
+                                        Button(action: {
+                                            Manager.OpenWindow(type: .PaletteViewWindow, palette: palette)
+                                        }) {
+                                            Text("View")
+                                        }
+                                        Button(action: {
+                                            self.showingAlert = true
+                                            paletteToDelete = palette
+                                        }) {
+                                            Text("Delete")
+                                        }
+                                    }))
                                 }
+                            }
+                            VStack {
+                                Button(action: {
+                                    Manager.OpenWindow(type: .PaletteAddWindow)
+                                }, label: {
+                                    VStack {
+                                        VStack {
+                                            Image("Add").resizable()
+                                        }.frame(width: cellSize / 100 * 75, height: cellSize / 100 * 75)
+                                    }.frame(width: cellSize, height: cellSize).background(RoundedRectangle(cornerRadius: 25).fill(Color.accentColor))
+                                }).buttonStyle(PlainButtonStyle()).frame(width: cellSize, height: cellSize).padding(EdgeInsets(top: 0, leading: 0, bottom: 10, trailing: 0))
+                                Text(" ")
                             }
                         }
                     }
@@ -85,10 +116,17 @@ struct MenuContentView: View {
                 Text("MenuColorPalettes © 2020 Mario Elsnig & Peter Elsnig")
                 Text("Default color palettes from flatuicolors.com")
             }
-        }.padding(panelPadding).frame(maxWidth: .infinity, maxHeight: .infinity)/*.background(RoundedRectangle(cornerRadius: panelRadius).fill(accentColor))*/.padding(panelMargin)
+        }.padding(panelPadding).frame(maxWidth: .infinity, maxHeight: .infinity).padding(panelMargin).fixedSize()
         .onReceive(palCountPublisher, perform: {
             newPalCount in
             self.palCount = newPalCount
+        }).alert(isPresented: $showingAlert, content: {
+            Alert(
+              title: Text("Delete \"\(paletteToDelete!.palName)\"?"),
+              message: Text("Do you want to delete \"\(paletteToDelete!.palName)\"?"), primaryButton: .destructive(Text("Delete"), action: {
+                    Manager.RemovePalette(name: paletteToDelete!.palName)
+                }), secondaryButton: .cancel(Text("Cancel"), action: { })
+            )
         })
     }
 }

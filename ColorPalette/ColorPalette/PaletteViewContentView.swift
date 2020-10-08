@@ -9,7 +9,7 @@
 import SwiftUI
 import Combine
 
-struct PaletteContentView: View {
+struct PaletteViewContentView: View {
     var palette: Palette
     var colorFormat: String {
         return formats[selection]
@@ -115,10 +115,10 @@ struct PaletteContentView: View {
 }
 
 
-struct PaletteContentView_Previews: PreviewProvider {
+struct PaletteViewContentView_Previews: PreviewProvider {
     static var previews: some View {
         Group {
-            PaletteContentView(palette: Manager.palettes[Manager.GetPaletteNameByIndex(idx: 0)]!)
+            PaletteViewContentView(palette: Manager.palettes[Manager.GetPaletteNameByIndex(idx: 0)]!)
         }
     }
 }

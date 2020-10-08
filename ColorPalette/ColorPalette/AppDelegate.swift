@@ -10,7 +10,6 @@ import SwiftUI
 
 @NSApplicationMain
 class AppDelegate: NSObject, NSApplicationDelegate {
-    
     var popover: NSPopover!
     var statusBarItem: NSStatusItem!
 
