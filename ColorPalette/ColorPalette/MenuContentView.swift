@@ -42,7 +42,6 @@ struct MenuContentView: View {
         VStack {
             VStack {
                 Text("Color palettes (\(palCount))")
-                Button("Manage palettes", action: { Manager.OpenWindow(type: .PaletteManagingWindow) })
                 
                 VStack {
                     ForEach (0..<(palCount / paletteColumns) + 1, id: \.self) {
@@ -54,7 +53,7 @@ struct MenuContentView: View {
                                     let palette = Manager.palettes[Manager.GetPaletteNameByIndex(idx: row * paletteColumns + col)]
                                     VStack {
                                         Button(action: {
-                                                Manager.OpenWindow(type: .PaletteViewWindow, palette: Manager.palettes[Manager.GetPaletteNameByIndex(idx: row * paletteColumns + col)])
+                                            Manager.OpenWindow(type: .PaletteViewWindow, palette: Manager.palettes[Manager.GetPaletteNameByIndex(idx: row * paletteColumns + col)])
                                         }, label: {
                                             
                                             VStack {
