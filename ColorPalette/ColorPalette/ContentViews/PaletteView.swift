@@ -48,7 +48,7 @@ struct PaletteView: View {
         VStack {
             HStack {
                 Picker(selection: $selection.onChange({ newSelection in
-                    UserDefaults.standard.setValue(newSselection, forKey: "\(palette.palName).colFormatIdx")
+                    UserDefaults.standard.setValue(newSelection, forKey: "\(palette.palName).colFormatIdx")
                 }), label: Text("Copy format")) {
                     ForEach (0..<formats.count, id: \.self) {
                         idx in
