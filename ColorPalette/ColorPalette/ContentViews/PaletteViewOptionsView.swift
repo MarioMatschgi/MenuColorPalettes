@@ -8,7 +8,9 @@
 import SwiftUI
 import Combine
 
-struct PaletteViewOptionsContentView: View {
+// MARK: PALETTE-VIEW-OPTIONS-VIEW
+/// PaletteViewOptionsView: The View for the viewing options for a Palette
+struct PaletteViewOptionsView: View {
     var palette: Palette
     
     @State private var palColCount = 0
@@ -52,12 +54,6 @@ struct PaletteViewOptionsContentView: View {
                     }).frame(width: valueWidth).onAppear() {
                         self.palCellRadius = Double(UserDefaults.standard.integer(forKey: "\(palette.palName).palCellRad"))
                     }
-                    
-//                    TextField("", value: $palCellRadius, formatter: NumberFormatter(), onCommit: {
-//                        UserDefaults.standard.setValue(palCellRadius, forKey: "\(palette.palName).palCellRad")
-//                    }).frame(width: valueWidth).onAppear() {
-//                        self.palCellRadius = UserDefaults.standard.integer(forKey: "\(palette.palName).palCellRad")
-//                    }
                 }.frame(alignment: .leading)
             }
         }.fixedSize().padding()
@@ -68,7 +64,7 @@ struct PaletteViewOptionsContentView: View {
 struct PaletteViewOptionsContentView_Previews: PreviewProvider {
     static var previews: some View {
         Group {
-            PaletteViewOptionsContentView(palette: Manager.palettes[Manager.GetPaletteNameByIndex(idx: 0)]!)
+            PaletteViewOptionsView(palette: Manager.palettes[Manager.GetPaletteNameByIndex(idx: 0)]!)
         }
     }
 }

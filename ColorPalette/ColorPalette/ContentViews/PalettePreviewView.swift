@@ -8,14 +8,16 @@
 import SwiftUI
 import Combine
 
-struct PalettePreviewContentView: View {
+// MARK: PALETTE-PREVIEW-VIEW
+/// PalettePreviewView: The View for previewing a Palette
+struct PalettePreviewView: View {
     var palette: Palette
     var colorFormat: String {
         return formats[selection]
     }
     
     // Grid stuff
-    @State var colCount: Int = 20
+    @State var colCount: Int = 0
     var palCountPublisher = PassthroughSubject<Int, Never>()
     let cellSize: CGVector
     let paletteColumns = 5
@@ -26,11 +28,12 @@ struct PalettePreviewContentView: View {
     
     @State private var selection: Int = 0
     init(palette: Palette, previewSize: CGFloat) {
-//        self.colorFormat = "§r, §g, §b, §a, §hex, §#hex, §hexA, §#hexA" // ToDo: Load from user defaults
-        
         self.palette = palette
-        self.cellSize = CGVector(dx: previewSize / CGFloat(paletteColumns), dy: previewSize / CGFloat(min(palette.palColors.count/paletteColumns, paletteColumns)))
-        self.colCount = palette.palColors.count
+        if self.palette.palColors.count == 0 {
+            self.cellSize = CGVector(dx: previewSize, dy: previewSize)
+        } else {
+            self.cellSize = CGVector(dx: previewSize / CGFloat(paletteColumns), dy: previewSize / CGFloat(min(palette.palColors.count/paletteColumns, paletteColumns)))
+        }
     }
     
     @State private var formats = [
@@ -48,16 +51,19 @@ struct PalettePreviewContentView: View {
                 HStack {
                     ForEach (0..<GetForBounds(row: row), id: \.self) {
                         col in
-                        VStack{ // ToDo: Replace with custom "Preview Stack"
+                        VStack {
                             
                         }.frame(width: cellSize.dx, height: cellSize.dy).background(GetCol(idx: row * paletteColumns + col))
                     }
                 }
             }
-        }
+        }.onAppear() { self.colCount = max(palette.palColors.count, 1) }
     }
     
     func GetCol(idx: Int) -> Color {
+        if palette.palColors[Manager.GetColorNameByIndex(idx: idx, palette: palette)] == nil {
+            return Color.black
+        }
         return palette.palColors[Manager.GetColorNameByIndex(idx: idx, palette: palette)]!.colColor.color
     }
 }
@@ -66,7 +72,7 @@ struct PalettePreviewContentView: View {
 struct PalettePreview_Previews: PreviewProvider {
     static var previews: some View {
         Group {
-            PalettePreviewContentView(palette: Manager.palettes[Manager.GetPaletteNameByIndex(idx: 0)]!, previewSize: 10)
+            PalettePreviewView(palette: Manager.palettes[Manager.GetPaletteNameByIndex(idx: 0)]!, previewSize: 100)
         }
     }
 }

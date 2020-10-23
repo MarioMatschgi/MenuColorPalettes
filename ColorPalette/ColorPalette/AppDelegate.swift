@@ -10,8 +10,8 @@ import SwiftUI
 
 @NSApplicationMain
 class AppDelegate: NSObject, NSApplicationDelegate {
-    var popover: NSPopover!
-    var statusBarItem: NSStatusItem!
+    static var popover: NSPopover!
+    static var statusBarItem: NSStatusItem!
 
 
     func applicationDidFinishLaunching(_ aNotification: Notification) {
@@ -19,29 +19,29 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         Manager.LoadPalettes()
         
         // Create the SwiftUI view that provides the window contents.
-        let contentView = MenuContentView()
+        let contentView = MenuItemView()
         
         // Create the popover
         let popover = NSPopover()
         popover.contentSize = NSSize(width: 400, height: 400)
         popover.behavior = .transient
         popover.contentViewController = NSHostingController(rootView: contentView)
-        self.popover = popover
+        AppDelegate.popover = popover
         
         // Create the status item
-        self.statusBarItem = NSStatusBar.system.statusItem(withLength: CGFloat(NSStatusItem.variableLength))
-        if let button = self.statusBarItem.button {
+        AppDelegate.statusBarItem = NSStatusBar.system.statusItem(withLength: CGFloat(NSStatusItem.variableLength))
+        if let button = AppDelegate.statusBarItem.button {
              button.image = NSImage(named: "Icon")
-             button.action = #selector(togglePopover(_:))
+            button.action = #selector(togglePopover(_:))
         }
     }
     
     @objc func togglePopover(_ sender: AnyObject?) {
-         if let button = self.statusBarItem.button {
-              if self.popover.isShown {
-                   self.popover.performClose(sender)
+         if let button = AppDelegate.statusBarItem.button {
+              if AppDelegate.popover.isShown {
+                AppDelegate.popover.performClose(sender)
               } else {
-                   self.popover.show(relativeTo: button.bounds, of: button, preferredEdge: NSRectEdge.minY)
+                AppDelegate.popover.show(relativeTo: button.bounds, of: button, preferredEdge: NSRectEdge.minY)
               }
          }
     }

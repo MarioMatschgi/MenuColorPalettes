@@ -9,14 +9,16 @@
 import SwiftUI
 import Combine
 
-struct PaletteViewContentView: View {
+// MARK: PALLETTE-VIEW
+/// PaletteView: The View for viewing a Palette
+struct PaletteView: View {
     var palette: Palette
     var colorFormat: String {
         return formats[selection]
     }
     
     // Grid stuff
-    @State var colCount: Int = 20
+    @State var colCount: Int = 0
     @State var paletteColumns = 5
     
     var palCountPublisher = PassthroughSubject<Int, Never>()
@@ -31,11 +33,7 @@ struct PaletteViewContentView: View {
     
     @State private var selection: Int = 0
     init(palette: Palette) {
-//        self.colorFormat = "§r, §g, §b, §a, §hex, §#hex, §hexA, §#hexA" // ToDo: Load from user defaults
-        
         self.palette = palette
-        
-        self.colCount = palette.palColors.count
     }
     
     @State private var formats = [
@@ -50,7 +48,7 @@ struct PaletteViewContentView: View {
         VStack {
             HStack {
                 Picker(selection: $selection.onChange({ newSelection in
-                    UserDefaults.standard.setValue(newSelection, forKey: "\(palette.palName).colFormatIdx")
+                    UserDefaults.standard.setValue(newSselection, forKey: "\(palette.palName).colFormatIdx")
                 }), label: Text("Copy format")) {
                     ForEach (0..<formats.count, id: \.self) {
                         idx in
@@ -75,7 +73,7 @@ struct PaletteViewContentView: View {
                         ForEach (0..<GetForBounds(row: row), id: \.self) {
                             col in
                             VStack {
-                                Button(action: { print("c \(Manager.GetColorNameByIndex(idx: row * paletteColumns + col, palette: palette))"); CopyColor(colName: Manager.GetColorNameByIndex(idx: row * paletteColumns + col, palette: palette)) }) {
+                                Button(action: { CopyColor(colName: Manager.GetColorNameByIndex(idx: row * paletteColumns + col, palette: palette)) }) {
                                     VStack {
                                         
                                     }.frame(width: cellSize, height: cellSize).background(RoundedRectangle(cornerRadius: cellRadius).fill(GetCol(idx: row * paletteColumns + col)))
@@ -92,6 +90,7 @@ struct PaletteViewContentView: View {
             self.paletteColumns = UserDefaults.standard.integer(forKey: "\(palette.palName).palColCount")
             self.cellSize = CGFloat(UserDefaults.standard.integer(forKey: "\(palette.palName).palCellSize"))
             self.cellRadius = CGFloat(self.cellSize / 100 * CGFloat(UserDefaults.standard.integer(forKey: "\(palette.palName).palCellRad")))
+            self.colCount = palette.palColors.count
         }
     }
     
@@ -127,7 +126,7 @@ struct PaletteViewContentView: View {
 struct PaletteViewContentView_Previews: PreviewProvider {
     static var previews: some View {
         Group {
-            PaletteViewContentView(palette: Manager.palettes[Manager.GetPaletteNameByIndex(idx: 0)]!)
+            PaletteView(palette: Manager.palettes[Manager.GetPaletteNameByIndex(idx: 0)]!)
         }
     }
 }

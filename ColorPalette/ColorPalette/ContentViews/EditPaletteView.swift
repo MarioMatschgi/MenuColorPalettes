@@ -8,7 +8,9 @@
 import SwiftUI
 import Combine
 
-struct PaletteEditContentView: View {
+// MARK: EDIT-PALETTE-VIEW
+/// EditPaletteView: The View for editing a Palette
+struct EditPaletteView: View {
     var palette: Palette
     
     @State private var showingAlert = false
@@ -19,7 +21,7 @@ struct PaletteEditContentView: View {
         VStack {
             Text("Editing: \(palette.palName)")
             Spacer(minLength: 20)
-            PalettePreviewContentView(palette: palette, previewSize: 100).cornerRadius(25)
+            PalettePreviewView(palette: palette, previewSize: 100).cornerRadius(25)
             
             Spacer(minLength: 20)
             
@@ -68,6 +70,6 @@ struct PaletteEditContentView: View {
 
 struct PaletteEditContentView_Previews: PreviewProvider {
     static var previews: some View {
-        PaletteEditContentView(palette: Manager.GetPaletteByIndex(idx: 0))
+        EditPaletteView(palette: Manager.GetPaletteByIndex(idx: 0))
     }
 }

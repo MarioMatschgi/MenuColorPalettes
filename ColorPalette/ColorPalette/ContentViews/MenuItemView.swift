@@ -9,13 +9,17 @@ import SwiftUI
 import Combine
 import Foundation
 
-struct MenuContentView: View {
-    static var instance: MenuContentView? = nil
+// MARK: MENUE-ITEM-VIEW
+/// MenueItemView: The View for the Menue Item
+struct MenuItemView: View {
+    static var instance: MenuItemView? = nil
     
     
     @State var paletteName = ""
     @State var paletteCode = ""
     
+    @State private var showingAlert = false
+    @State private var paletteToDelete: Palette?
     
     let accentColor = Color(red: 52/255, green: 152/255, blue: 219/255)
     
@@ -33,11 +37,8 @@ struct MenuContentView: View {
     
     
     init() {
-        MenuContentView.instance = self;
+        MenuItemView.instance = self;
     }
-    
-    @State private var showingAlert = false
-    @State private var paletteToDelete: Palette?
     
     var body: some View {
         VStack {
@@ -46,31 +47,23 @@ struct MenuContentView: View {
                 
                 // Grid
                 VStack {
-                    ForEach (0..<(palCount / paletteColumns) + 1, id: \.self) {
-                        row in
+                    ForEach (0..<(palCount / paletteColumns) + 1, id: \.self) { row in
                         HStack {
-                            ForEach (0..<GetForBounds(row: row), id: \.self) {
-                                col in
+                            ForEach (0..<GetForBounds(row: row), id: \.self) { col in
                                 Group {
                                     let palette = Manager.palettes[Manager.GetPaletteNameByIndex(idx: row * paletteColumns + col)]
                                     VStack {
-                                        Button(action: {
-                                            Manager.OpenWindow(type: .PaletteViewWindow, palette: palette)
-                                        }, label: {
+                                        Button(action: { Manager.OpenWindow(type: .PaletteViewWindow, palette: palette) }, label: {
                                             VStack {
-                                                PalettePreviewContentView(palette: palette!, previewSize: cellSize)
+                                                PalettePreviewView(palette: palette!, previewSize: cellSize)
                                             }.frame(width: cellSize, height: cellSize).cornerRadius(panelRadius)
                                         }).buttonStyle(PlainButtonStyle()).frame(width: cellSize, height: cellSize).padding(EdgeInsets(top: 0, leading: 0, bottom: 10, trailing: 0))
                                         Text("\(palette!.palName)")
                                     }.padding(cellPadding).contextMenu(ContextMenu(menuItems: {
-                                        Button(action: {
-                                            Manager.OpenWindow(type: .PaletteEditWindow, palette: palette)
-                                        }) {
+                                        Button(action: { Manager.OpenWindow(type: .PaletteEditWindow, palette: palette) }) {
                                             Text("Edit")
                                         }
-                                        Button(action: {
-                                            Manager.OpenWindow(type: .PaletteViewWindow, palette: palette)
-                                        }) {
+                                        Button(action: { Manager.OpenWindow(type: .PaletteViewWindow, palette: palette) }) {
                                             Text("View")
                                         }
                                         Button(action: {
@@ -82,19 +75,13 @@ struct MenuContentView: View {
                                     }))
                                 }
                             }
-                            VStack {
-                                Button(action: {
-                                    Manager.OpenWindow(type: .PaletteAddWindow)
-                                }, label: {
-                                    VStack {
-                                        VStack {
-                                            Image("Add").resizable()
-                                        }.frame(width: cellSize / 100 * 75, height: cellSize / 100 * 75)
-                                    }.frame(width: cellSize, height: cellSize).background(RoundedRectangle(cornerRadius: 25).fill(Color.accentColor))
-                                }).buttonStyle(PlainButtonStyle()).frame(width: cellSize, height: cellSize).padding(EdgeInsets(top: 0, leading: 0, bottom: 10, trailing: 0))
-                                Text(" ")
-                            }
                         }
+                    }
+                    VStack {
+                        Button(action: { Manager.OpenWindow(type: .PaletteAddWindow) }, label: {
+                            Image("Add").resizable().frame(width: cellSize / 100 * 75, height: cellSize / 100 * 75).frame(width: cellSize, height: cellSize).background(RoundedRectangle(cornerRadius: 25).fill(Color.accentColor))
+                        }).buttonStyle(PlainButtonStyle()).frame(width: cellSize, height: cellSize).padding(EdgeInsets(top: 0, leading: 0, bottom: 10, trailing: 0))
+                        Text(" ")
                     }
                 }
             }
@@ -109,6 +96,15 @@ struct MenuContentView: View {
                     Button("Reload palettes", action: { Manager.LoadPalettes() })
                 }
             }
+            
+            Spacer()
+            
+            VStack {
+                Text("Hints:")
+                Text("Command click on a color to copy it without switching focus to MenueColorPalettes")
+            }
+            
+            Spacer()
             
             VStack {
                 Text("MenuColorPalettes © 2020 Mario Elsnig & Peter Elsnig")
@@ -131,6 +127,6 @@ struct MenuContentView: View {
 
 struct MenuContentView_Previews: PreviewProvider {
     static var previews: some View {
-        MenuContentView()
+        MenuItemView()
     }
 }

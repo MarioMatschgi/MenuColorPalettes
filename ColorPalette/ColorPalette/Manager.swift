@@ -96,7 +96,7 @@ class Manager {
     }
     
     private static func SendPublisher() {
-        MenuContentView.instance?.palCountPublisher.send(palettes.count)
+        MenuItemView.instance?.palCountPublisher.send(palettes.count)
     }
     
     static func GetPaletteNameByIndex(idx: Int) -> String {
@@ -195,13 +195,13 @@ class Manager {
     private static func GetContentView(type: WindowType, palette: Palette?) -> NSView {
         switch type {
         case .PaletteAddWindow:
-            return NSHostingView(rootView: PaletteAddContentView())
+            return NSHostingView(rootView: AddPaletteView())
         case .PaletteEditWindow:
-            return NSHostingView(rootView: PaletteEditContentView(palette: palette!))
+            return NSHostingView(rootView: EditPaletteView(palette: palette!))
         case .PaletteViewOptions:
-            return NSHostingView(rootView: PaletteViewOptionsContentView(palette: palette!))
+            return NSHostingView(rootView: PaletteViewOptionsView(palette: palette!))
         case .PaletteViewWindow:
-            return NSHostingView(rootView: PaletteViewContentView(palette: palette!))
+            return NSHostingView(rootView: PaletteView(palette: palette!))
         }
     }
     private static func GetWindowTitle(type: WindowType, palette: Palette?) -> String {
