@@ -36,15 +36,95 @@ struct SerializableColor: Codable {
     var blue: Double
     var alpha: Double?
     
+    var red255: Double {
+        get { return red * 255 }
+        set { red = newValue / 255}
+    }
+    var green255: Double {
+        get { return green * 255 }
+        set { green = newValue / 255}
+    }
+    var blue255: Double {
+        get { return blue * 255 }
+        set { blue = newValue / 255}
+    }
+    var alpha255: Double? {
+        get {
+            if alpha == nil { return nil }
+            return alpha! * 255
+        }
+        set {
+            if newValue == nil { alpha = nil }
+            alpha = newValue! / 255
+        }
+    }
+    
     var hex: String {
-        return "\(String(format:"%02X", Int(red * 255)))\(String(format:"%02X", Int(green * 255)))\(String(format:"%02X", Int(blue * 255)))"
+        get {
+            return "\(String(format:"%02X", Int(red * 255)))\(String(format:"%02X", Int(green * 255)))\(String(format:"%02X", Int(blue * 255)))"
+        }
+        set {
+            var val = newValue
+            if newValue.hasPrefix("#") {
+                val = newValue.substring(with: 1..<newValue.count)
+            }
+            if val.count == 8 {
+                hexA = val
+                return
+            }
+            if val.count != 6 {
+                return
+            }
+            red     = Double(Int(val.substring(with: 0..<2), radix: 16)!) / Double(255)
+            green   = Double(Int(val.substring(with: 2..<4), radix: 16)!) / Double(255)
+            blue    = Double(Int(val.substring(with: 4..<6), radix: 16)!) / Double(255)
+        }
     }
     var hexA: String {
-        return "\(String(format:"%02X", Int(red * 255)))\(String(format:"%02X", Int(green * 255)))\(String(format:"%02X", Int(blue * 255)))\(String(format:"%02X", Int(alpha == nil ? 1 : alpha! * 255)))"
+        get {
+            return "\(String(format:"%02X", Int(red * 255)))\(String(format:"%02X", Int(green * 255)))\(String(format:"%02X", Int(blue * 255)))\(String(format:"%02X", Int(alpha == nil ? 1 : alpha! * 255)))"
+        }
+        set {
+            var val = newValue
+            if newValue.hasPrefix("#") {
+                val = newValue.substring(with: 1..<newValue.count)
+            }
+            if val.count == 6 {
+                val.append("ff")
+            }
+            if val.count != 8 {
+                return
+            }
+            red     = Double(Int(val.substring(with: 0..<2), radix: 16)!) / Double(255)
+            green   = Double(Int(val.substring(with: 2..<4), radix: 16)!) / Double(255)
+            blue    = Double(Int(val.substring(with: 4..<6), radix: 16)!) / Double(255)
+            alpha   = Double(Int(val.substring(with: 6..<8), radix: 16)!) / Double(255)
+        }
     }
 
     var color: Color {
         return Color(red: red, green: green, blue: blue, opacity: alpha ?? 1)
+    }
+}
+extension String {
+    func index(from: Int) -> Index {
+        return self.index(startIndex, offsetBy: from)
+    }
+
+    func substring(from: Int) -> String {
+        let fromIndex = index(from: from)
+        return String(self[fromIndex...])
+    }
+
+    func substring(to: Int) -> String {
+        let toIndex = index(from: to)
+        return String(self[..<toIndex])
+    }
+
+    func substring(with r: Range<Int>) -> String {
+        let startIndex = index(from: r.lowerBound)
+        let endIndex = index(from: r.upperBound)
+        return String(self[startIndex..<endIndex])
     }
 }
 

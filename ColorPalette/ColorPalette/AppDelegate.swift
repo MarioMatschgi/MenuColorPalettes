@@ -10,11 +10,14 @@ import SwiftUI
 
 @NSApplicationMain
 class AppDelegate: NSObject, NSApplicationDelegate {
+    static var instance: AppDelegate?
     static var popover: NSPopover!
     static var statusBarItem: NSStatusItem!
 
 
     func applicationDidFinishLaunching(_ aNotification: Notification) {
+        AppDelegate.instance = self
+        
         // Load Palettes
         Manager.LoadPalettes()
         

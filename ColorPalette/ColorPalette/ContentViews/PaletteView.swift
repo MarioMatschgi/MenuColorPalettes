@@ -12,13 +12,14 @@ import Combine
 // MARK: PALLETTE-VIEW
 /// PaletteView: The View for viewing a Palette
 struct PaletteView: View {
-    var palette: Palette
+    @State var palette: Palette
     var colorFormat: String {
         return formats[selection]
     }
     
+    @State var isAddingColor = false
+    
     // Grid stuff
-    @State var colCount: Int = 0
     @State var paletteColumns = 5
     
     var palCountPublisher = PassthroughSubject<Int, Never>()
@@ -27,14 +28,18 @@ struct PaletteView: View {
     @State var cellRadius = CGFloat(25)
     @State var cellSize = CGFloat(100)
     let cellPadding = CGFloat(5)
-    func GetForBounds(row: Int) -> Int {
-        return min(colCount-(row * paletteColumns), paletteColumns)
+    
+    func GetOuterForBounds() -> Int {
+        return ((palette.palColors.count + 1) / paletteColumns) + 1
+    }
+    func GetInnerForBounds(row: Int) -> Int {
+        return min(palette.palColors.count + 1 - (row * paletteColumns), paletteColumns)
+    }
+    func IsLastCell(row: Int, col: Int) -> Bool {
+        return (row == GetOuterForBounds() - 1 && col == GetInnerForBounds(row: row) - 1)
     }
     
     @State private var selection: Int = 0
-    init(palette: Palette) {
-        self.palette = palette
-    }
     
     @State private var formats = [
         "§r, §g, §b",
@@ -49,12 +54,13 @@ struct PaletteView: View {
             HStack {
                 Picker(selection: $selection.onChange({ newSelection in
                     UserDefaults.standard.setValue(newSelection, forKey: "\(palette.palName).colFormatIdx")
-                }), label: Text("Copy format")) {
+                }), label: Text("Copy format").frame(minWidth: 100, alignment: .leading)) {
                     ForEach (0..<formats.count, id: \.self) {
                         idx in
                         Text(formats[idx].replacingOccurrences(of: "§", with: "")).tag(idx)
                     }
-                }.onAppear() {
+                }.frame(minWidth: 250)
+                .onAppear() {
                     self.selection = UserDefaults.standard.integer(forKey: "\(palette.palName).colFormatIdx").clamped(to: 0...formats.count-2)
                 }
                 Button(action: {
@@ -67,34 +73,52 @@ struct PaletteView: View {
             Spacer()
             
             VStack {
-                ForEach (0..<(colCount / paletteColumns) + 1, id: \.self) {
+                ForEach (0..<GetOuterForBounds(), id: \.self) {
                     row in
                     HStack {
-                        ForEach (0..<GetForBounds(row: row), id: \.self) {
+                        ForEach (0..<GetInnerForBounds(row: row), id: \.self) {
                             col in
+                            
                             VStack {
-                                Button(action: { CopyColor(colName: Manager.GetColorNameByIndex(idx: row * paletteColumns + col, palette: palette)) }) {
+                                if IsLastCell(row: row, col: col) {
+                                    if !isAddingColor {
+                                        AddItemView(cellSize: cellSize, action: { self.isAddingColor = true })
+                                    }
+                                }
+                                else {
                                     VStack {
+                                        Button(action: { CopyColor(colName: Manager.GetColorNameByIndex(idx: row * paletteColumns + col, palette: palette)) }) {
+                                            VStack {
+                                                
+                                            }.frame(width: cellSize, height: cellSize).background(RoundedRectangle(cornerRadius: cellRadius).fill(GetCol(idx: row * paletteColumns + col)))
+                                        }.buttonStyle(PlainButtonStyle()).frame(width: cellSize, height: cellSize).padding(EdgeInsets(top: 0, leading: 0, bottom: 10, trailing: 0))
                                         
-                                    }.frame(width: cellSize, height: cellSize).background(RoundedRectangle(cornerRadius: cellRadius).fill(GetCol(idx: row * paletteColumns + col)))
-                                }.buttonStyle(PlainButtonStyle()).frame(width: cellSize, height: cellSize).padding(EdgeInsets(top: 0, leading: 0, bottom: 10, trailing: 0))
-                                
-                                Text("\(Manager.GetColorNameByIndex(idx: row * paletteColumns + col, palette: palette))").fixedSize(horizontal: false, vertical: true)
-                            }.frame(width: cellSize, height: cellSize + 50, alignment: .top).padding(cellPadding)
+                                        Text("\(Manager.GetColorNameByIndex(idx: row * paletteColumns + col, palette: palette))").fixedSize(horizontal: false, vertical: true)
+                                    }.frame(width: cellSize, height: cellSize + 50, alignment: .top).padding(cellPadding)
+                                }
+                            }
                         }
                     }
                 }
+            }
+            
+            if isAddingColor {
+                Spacer()
+                Divider()
+                AddColorView(palette: $palette, isAddingColor: $isAddingColor)
             }
         }.fixedSize().padding()
         .onAppear() {
             self.paletteColumns = UserDefaults.standard.integer(forKey: "\(palette.palName).palColCount")
             self.cellSize = CGFloat(UserDefaults.standard.integer(forKey: "\(palette.palName).palCellSize"))
             self.cellRadius = CGFloat(self.cellSize / 100 * CGFloat(UserDefaults.standard.integer(forKey: "\(palette.palName).palCellRad")))
-            self.colCount = palette.palColors.count
         }
     }
     
     func GetCol(idx: Int) -> Color {
+        if palette.palColors[Manager.GetColorNameByIndex(idx: idx, palette: palette)] == nil {
+            return Color.black
+        }
         return palette.palColors[Manager.GetColorNameByIndex(idx: idx, palette: palette)]!.colColor.color
     }
     

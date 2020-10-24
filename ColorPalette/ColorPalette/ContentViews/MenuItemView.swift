@@ -77,12 +77,7 @@ struct MenuItemView: View {
                             }
                         }
                     }
-                    VStack {
-                        Button(action: { Manager.OpenWindow(type: .PaletteAddWindow) }, label: {
-                            Image("Add").resizable().frame(width: cellSize / 100 * 75, height: cellSize / 100 * 75).frame(width: cellSize, height: cellSize).background(RoundedRectangle(cornerRadius: 25).fill(Color.accentColor))
-                        }).buttonStyle(PlainButtonStyle()).frame(width: cellSize, height: cellSize).padding(EdgeInsets(top: 0, leading: 0, bottom: 10, trailing: 0))
-                        Text(" ")
-                    }
+                    AddItemView(cellSize: cellSize, action: { Manager.OpenWindow(type: .PaletteAddWindow) })
                 }
             }
             
@@ -122,6 +117,20 @@ struct MenuItemView: View {
                 }), secondaryButton: .cancel(Text("Cancel"), action: { })
             )
         })
+    }
+}
+
+struct AddItemView: View {
+    @State var cellSize: CGFloat
+    var action: () -> Void
+    
+    var body: some View {
+        VStack {
+            Button(action: action, label: {
+                Image("Add").resizable().frame(width: cellSize / 100 * 75, height: cellSize / 100 * 75).frame(width: cellSize, height: cellSize).background(RoundedRectangle(cornerRadius: 25).fill(Color.accentColor))
+            }).buttonStyle(PlainButtonStyle()).frame(width: cellSize, height: cellSize).padding(EdgeInsets(top: 0, leading: 0, bottom: 10, trailing: 0))
+            Text(" ")
+        }
     }
 }
 

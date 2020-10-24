@@ -194,26 +194,26 @@ class Manager {
     }
     private static func GetContentView(type: WindowType, palette: Palette?) -> NSView {
         switch type {
-        case .PaletteAddWindow:
-            return NSHostingView(rootView: AddPaletteView())
-        case .PaletteEditWindow:
-            return NSHostingView(rootView: EditPaletteView(palette: palette!))
-        case .PaletteViewOptions:
-            return NSHostingView(rootView: PaletteViewOptionsView(palette: palette!))
-        case .PaletteViewWindow:
-            return NSHostingView(rootView: PaletteView(palette: palette!))
+            case .PaletteAddWindow:
+                return NSHostingView(rootView: AddPaletteView())
+            case .PaletteEditWindow:
+                return NSHostingView(rootView: EditPaletteView(palette: palette!))
+            case .PaletteViewOptions:
+                return NSHostingView(rootView: PaletteViewOptionsView(palette: palette!))
+            case .PaletteViewWindow:
+                return NSHostingView(rootView: PaletteView(palette: palette!))
         }
     }
     private static func GetWindowTitle(type: WindowType, palette: Palette?) -> String {
         switch type {
-        case .PaletteAddWindow:
-            return "Add palette"
-        case .PaletteEditWindow:
-            return "Manage palettes"
-        case .PaletteViewOptions:
-            return "Palette options"
-        case .PaletteViewWindow:
-            return "View palette \((palette?.palName)!)"
+            case .PaletteAddWindow:
+                return "Add palette"
+            case .PaletteEditWindow:
+                return "Manage palettes"
+            case .PaletteViewOptions:
+                return "Palette options"
+            case .PaletteViewWindow:
+                return "View palette \((palette?.palName)!)"
         }
     }
     
