@@ -1,0 +1,65 @@
+{\rtf1\ansi\ansicpg1252\cocoartf2576
+\cocoatextscaling0\cocoaplatform0{\fonttbl\f0\fnil\fcharset0 Menlo-Regular;}
+{\colortbl;\red255\green255\blue255;}
+{\*\expandedcolortbl;;}
+\margl1440\margr1440\vieww9000\viewh8400\viewkind0
+\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\pardirnatural\partightenfactor0
+
+\f0\fs24 \cf0 2020-11-22 00:16:30.607568+0100 ColorPalette[4687:142850] [User Defaults] Attempt to set a non-property-list object SwiftUI.Binding<CoreGraphics.CGFloat>(transaction: SwiftUI.Transaction(plist: []), location: SwiftUI.StoredLocation<CoreGraphics.CGFloat>, _value: 25.0) as an NSUserDefaults/CFPreferences value for key view.cellSpacing\
+2020-11-22 00:16:30.617270+0100 ColorPalette[4687:142850] [General] Attempt to insert non-property list object SwiftUI.Binding<CoreGraphics.CGFloat>(transaction: SwiftUI.Transaction(plist: []), location: SwiftUI.StoredLocation<CoreGraphics.CGFloat>, _value: 25.0) for key view.cellSpacing\
+2020-11-22 00:16:30.624568+0100 ColorPalette[4687:142850] [General] (\
+	0   CoreFoundation                      0x00007fff204bd6af __exceptionPreprocess + 242\
+	1   libobjc.A.dylib                     0x00007fff201f53c9 objc_exception_throw + 48\
+	2   CoreFoundation                      0x00007fff20571a9a -[__NSCFString characterAtIndex:].cold.1 + 0\
+	3   CoreFoundation                      0x00007fff204e1102 _CFPrefsValidateValueForKey + 244\
+	4   CoreFoundation                      0x00007fff20406ca9 createDeepCopyOfValueForKey + 134\
+	5   CoreFoundation                      0x00007fff204069f2 -[CFPrefsSource setValues:forKeys:count:copyValues:removeValuesForKeys:count:from:] + 326\
+	6   CoreFoundation                      0x00007fff2040689c -[CFPrefsSource setValues:forKeys:count:copyValues:from:] + 39\
+	7   CoreFoundation                      0x00007fff204493e9 -[CFPrefsSource setValue:forKey:from:] + 71\
+	8   CoreFoundation                      0x00007fff20449334 __76-[_CFXPreferences setValue:forKey:appIdentifier:container:configurationURL:]_block_invoke + 64\
+	9   CoreFoundation                      0x00007fff203f07b4 __108-[_CFXPreferences(SearchListAdditions) withSearchListForIdentifier:container:cloudConfigurationURL:perform:]_block_invoke + 361\
+	10  CoreFoundation                      0x00007fff20548c9b -[_CFXPreferences withSearchListForIdentifier:container:cloudConfigurationURL:perform:] + 372\
+	11  CoreFoundation                      0x00007fff204492d9 -[_CFXPreferences setValue:forKey:appIdentifier:container:configurationURL:] + 96\
+	12  CoreFoundation                      0x00007fff2044923f _CFPreferencesSetAppValueWithContainerAndConfiguration + 113\
+	13  Foundation                          0x00007fff211dd11e -[NSUserDefaults(NSUserDefaults) setObject:forKey:] + 55\
+	14  ColorPalette                        0x000000010b7f7354 $s12ColorPalette12MenuItemViewV4bodyQrvg7SwiftUI05TupleE0VyAA05TitleE0V_AA07SectionE0VyAE9LazyVGridVyAE7ForEachVySnySiGSiAE0E0PAEE12cornerRadius_11antialiasedQr12CoreGraphics7CGFloatV_SbtFQOyArEE10background_9alignmentQrqd___AE9AlignmentVtAeQRd__lFQOyArEE5frame5width6heightAYQrAWSg_A3_A_tFQOyAE6VStackVyAE05EmptyE0VG_Qo__AE0A0VQo__Qo_GGGAKyAGyAE6HStackVyAGyArEEA0_A1_A2_AYQrA3__A3_A_tFQOyAE4TextV_Qo__ArEE9onReceive_7performQrqd___y6OutputQyd__ct7Combine9PublisherRd__s5NeverO7FailureRtd__lFQOyAE9TextFieldVyA20_G_SqA26_EA27_VyypSg_GQo_tGG_A40_A18_yAGyA21__ArEEA22__A23_Qrqd___yA25_ctA26_A27_Rd__A29_A31_RSlFQOyAE6SliderVyA7_A7_G_A37_Qo_tGGtGGAKyA18_yAGyAE6ButtonVyA20_G_A51_tGGGtGyXEfU_A47_yXEfU0_A39_yXEfU0_yA36_cfU_ + 404\
+	15  SwiftUI                             0x00007fff41de0bbc $s7SwiftUI16SubscriptionViewV14ChildAttribute33_B7395C55465EE5362F6FA49ABBDDC4FBLLV11updateValueyyFy6OutputQzcfU_yycfU_ + 60\
+	16  SwiftUI                             0x00007fff41be0b8c $sIeg_ytIegr_TR + 12\
+	17  SwiftUI                             0x00007fff41de2011 $sIeg_ytIegr_TRTA + 17\
+	18  SwiftUI                             0x00007fff4210d8d4 $s7SwiftUI6UpdateO3endyyFZ + 436\
+	19  SwiftUI                             0x00007fff421e65f7 $s7SwiftUI16ViewRendererHostPAAE06updateC5Graph4bodyqd__qd__AA0cG0CXE_tlFqd__yXEfU_ + 87\
+	20  SwiftUI                             0x00007fff421e4849 $s7SwiftUI16ViewRendererHostPAAE06updateC5Graph4bodyqd__qd__AA0cG0CXE_tlF + 73\
+	21  SwiftUI                             0x00007fff421f02d9 $s7SwiftUI13NSHostingViewCyqd__GAA0D13GraphDelegateA2aEP06updatedE04bodyqd__qd__AA0dE0CXE_tlFTW + 25\
+	22  SwiftUI                             0x00007fff421da3b5 $s7SwiftUI16ViewRendererHostPAAE12sizeThatFitsySo6CGSizeVAA13_ProposedSizeVF + 117\
+	23  SwiftUI                             0x00007fff4221630b $s7SwiftUI13NSHostingViewC7minSize33_32B6F54841135BB466A5C1362EB89D05LLSo6CGSizeVyFTm + 75\
+	24  SwiftUI                             0x00007fff422164b5 $s7SwiftUI13NSHostingViewC41updateWindowContentSizeExtremaIfNecessary33_32B6F54841135BB466A5C1362EB89D05LLyyF + 309\
+	25  SwiftUI                             0x00007fff4221cccd $s7SwiftUI13NSHostingViewC19viewDidMoveToWindowyyF + 253\
+	26  SwiftUI                             0x00007fff4221cdc5 $s7SwiftUI13NSHostingViewC19viewDidMoveToWindowyyFTo + 21\
+	27  AppKit                              0x00007fff22c73c0e -[NSView _setWindow:] + 1790\
+	28  AppKit                              0x00007fff22c7ce22 -[NSView addSubview:] + 194\
+	29  AppKit                              0x00007fff22ca3efc -[NSWindow setContentView:] + 366\
+	30  AppKit                              0x00007fff22f96d8f -[_NSPopoverWindow setContentView:] + 74\
+	31  AppKit                              0x00007fff22eb4540 -[NSWindow _contentViewControllerChanged] + 816\
+	32  AppKit                              0x00007fff22f969ad -[NSPopover _makePopoverWindowIfNeeded] + 728\
+	33  AppKit                              0x00007fff22f96177 -[NSPopover showRelativeToRect:ofView:preferredEdge:] + 1633\
+	34  ColorPalette                        0x000000010b7d78b2 $s12ColorPalette11AppDelegateC13togglePopoveryyyXlSgF + 2562\
+	35  ColorPalette                        0x000000010b7d7920 $s12ColorPalette11AppDelegateC13togglePopoveryyyXlSgFTo + 64\
+	36  AppKit                              0x00007fff22e7bc4a -[NSApplication(NSResponder) sendAction:to:from:] + 283\
+	37  AppKit                              0x00007fff22e7baf5 -[NSControl sendAction:to:] + 86\
+	38  AppKit                              0x00007fff22e78981 NSControlTrackMouse + 1757\
+	39  AppKit                              0x00007fff22e7827c -[NSCell trackMouse:inRect:ofView:untilMouseUp:] + 130\
+	40  AppKit                              0x00007fff22e78141 -[NSButtonCell trackMouse:inRect:ofView:untilMouseUp:] + 697\
+	41  AppKit                              0x00007fff233c0085 -[NSStatusBarButtonCell trackMouse:inRect:ofView:untilMouseUp:] + 334\
+	42  AppKit                              0x00007fff22e7747b -[NSControl mouseDown:] + 722\
+	43  AppKit                              0x00007fff22e75908 -[NSWindow(NSEventRouting) _handleMouseDownEvent:isDelayedEvent:] + 4956\
+	44  AppKit                              0x00007fff22de5784 -[NSWindow(NSEventRouting) _reallySendEvent:isDelayedEvent:] + 2594\
+	45  AppKit                              0x00007fff22de4b46 -[NSWindow(NSEventRouting) sendEvent:] + 347\
+	46  AppKit                              0x00007fff233c243b -[NSStatusBarWindow sendEvent:] + 613\
+	47  AppKit                              0x00007fff22de2f2c -[NSApplication(NSEvent) sendEvent:] + 352\
+	48  AppKit                              0x00007fff230ba02e -[NSApplication _handleEvent:] + 65\
+	49  AppKit                              0x00007fff22c4bbff -[NSApplication run] + 623\
+	50  AppKit                              0x00007fff22c1ff31 NSApplicationMain + 816\
+	51  ColorPalette                        0x000000010b7d7c3d main + 13\
+	52  libdyld.dylib                       0x00007fff20366631 start + 1\
+	53  ???                                 0x0000000000000003 0x0 + 3\
+)}
