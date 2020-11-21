@@ -18,17 +18,14 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     func applicationDidFinishLaunching(_ aNotification: Notification) {
         AppDelegate.instance = self
         
-        // Load Palettes
-        Manager.LoadPalettes()
-        
         // Create the SwiftUI view that provides the window contents.
-        let contentView = MenuItemView()
+//        let contentView = MenuItemView()
         
         // Create the popover
         let popover = NSPopover()
         popover.contentSize = NSSize(width: 400, height: 400)
         popover.behavior = .transient
-        popover.contentViewController = NSHostingController(rootView: contentView)
+//        popover.contentViewController = NSHostingController(rootView: contentView)
         AppDelegate.popover = popover
         
         // Create the status item

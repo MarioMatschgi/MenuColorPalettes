@@ -7,40 +7,20 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		AC060D85252F4B7200707227 /* PalettePreviewView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC060D84252F4B7200707227 /* PalettePreviewView.swift */; };
-		AC060D8C252FAB8D00707227 /* AddViews.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC060D8B252FAB8D00707227 /* AddViews.swift */; };
-		AC060D90252FB1C800707227 /* PaletteViewOptionsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC060D8F252FB1C800707227 /* PaletteViewOptionsView.swift */; };
-		AC2578E6252D10010051517F /* Manager.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC2578E5252D10010051517F /* Manager.swift */; };
 		AC31F419252CCC8F007BDF39 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC31F418252CCC8F007BDF39 /* AppDelegate.swift */; };
-		AC31F41B252CCC8F007BDF39 /* EditPaletteView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC31F41A252CCC8F007BDF39 /* EditPaletteView.swift */; };
 		AC31F41D252CCC92007BDF39 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = AC31F41C252CCC92007BDF39 /* Assets.xcassets */; };
 		AC31F420252CCC92007BDF39 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = AC31F41F252CCC92007BDF39 /* Preview Assets.xcassets */; };
 		AC31F423252CCC92007BDF39 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = AC31F421252CCC92007BDF39 /* Main.storyboard */; };
-		AC3CC12225441D3000586D66 /* ColorPickerMac.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC3CC12125441D3000586D66 /* ColorPickerMac.swift */; };
-		AC67C3A1252E726500C9E622 /* PaletteView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC67C3A0252E726500C9E622 /* PaletteView.swift */; };
-		AC746702252CF8310070B6CC /* TestHtml.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC746701252CF8310070B6CC /* TestHtml.swift */; };
-		AC746705252CF8860070B6CC /* Extentions.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC746704252CF8860070B6CC /* Extentions.swift */; };
-		AC74670B252CFB840070B6CC /* MenuItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC74670A252CFB840070B6CC /* MenuItemView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		AC060D84252F4B7200707227 /* PalettePreviewView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PalettePreviewView.swift; sourceTree = "<group>"; };
-		AC060D8B252FAB8D00707227 /* AddViews.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddViews.swift; sourceTree = "<group>"; };
-		AC060D8F252FB1C800707227 /* PaletteViewOptionsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaletteViewOptionsView.swift; sourceTree = "<group>"; };
-		AC2578E5252D10010051517F /* Manager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Manager.swift; sourceTree = "<group>"; };
 		AC31F415252CCC8F007BDF39 /* ColorPalette.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ColorPalette.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		AC31F418252CCC8F007BDF39 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		AC31F41A252CCC8F007BDF39 /* EditPaletteView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditPaletteView.swift; sourceTree = "<group>"; };
 		AC31F41C252CCC92007BDF39 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		AC31F41F252CCC92007BDF39 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		AC31F422252CCC92007BDF39 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		AC31F424252CCC92007BDF39 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		AC31F425252CCC92007BDF39 /* ColorPalette.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = ColorPalette.entitlements; sourceTree = "<group>"; };
-		AC3CC12125441D3000586D66 /* ColorPickerMac.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorPickerMac.swift; sourceTree = "<group>"; };
-		AC67C3A0252E726500C9E622 /* PaletteView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PaletteView.swift; sourceTree = "<group>"; };
-		AC746701252CF8310070B6CC /* TestHtml.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestHtml.swift; sourceTree = "<group>"; };
-		AC746704252CF8860070B6CC /* Extentions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extentions.swift; sourceTree = "<group>"; };
-		AC74670A252CFB840070B6CC /* MenuItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuItemView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -75,9 +55,6 @@
 			children = (
 				ACD58F1C25437F7500DD4E40 /* ContentViews */,
 				AC31F418252CCC8F007BDF39 /* AppDelegate.swift */,
-				AC2578E5252D10010051517F /* Manager.swift */,
-				AC746704252CF8860070B6CC /* Extentions.swift */,
-				AC746701252CF8310070B6CC /* TestHtml.swift */,
 				AC31F41C252CCC92007BDF39 /* Assets.xcassets */,
 				AC31F421252CCC92007BDF39 /* Main.storyboard */,
 				AC31F424252CCC92007BDF39 /* Info.plist */,
@@ -98,13 +75,6 @@
 		ACD58F1C25437F7500DD4E40 /* ContentViews */ = {
 			isa = PBXGroup;
 			children = (
-				AC74670A252CFB840070B6CC /* MenuItemView.swift */,
-				AC67C3A0252E726500C9E622 /* PaletteView.swift */,
-				AC060D8F252FB1C800707227 /* PaletteViewOptionsView.swift */,
-				AC060D8B252FAB8D00707227 /* AddViews.swift */,
-				AC3CC12125441D3000586D66 /* ColorPickerMac.swift */,
-				AC31F41A252CCC8F007BDF39 /* EditPaletteView.swift */,
-				AC060D84252F4B7200707227 /* PalettePreviewView.swift */,
 			);
 			path = ContentViews;
 			sourceTree = "<group>";
@@ -179,16 +149,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				AC746705252CF8860070B6CC /* Extentions.swift in Sources */,
-				AC060D85252F4B7200707227 /* PalettePreviewView.swift in Sources */,
-				AC2578E6252D10010051517F /* Manager.swift in Sources */,
-				AC31F41B252CCC8F007BDF39 /* EditPaletteView.swift in Sources */,
-				AC746702252CF8310070B6CC /* TestHtml.swift in Sources */,
-				AC74670B252CFB840070B6CC /* MenuItemView.swift in Sources */,
-				AC060D90252FB1C800707227 /* PaletteViewOptionsView.swift in Sources */,
-				AC060D8C252FAB8D00707227 /* AddViews.swift in Sources */,
-				AC3CC12225441D3000586D66 /* ColorPickerMac.swift in Sources */,
-				AC67C3A1252E726500C9E622 /* PaletteView.swift in Sources */,
 				AC31F419252CCC8F007BDF39 /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -339,7 +299,7 @@
 					"$(inherited)",
 					"@executable_path/../Frameworks",
 				);
-				MACOSX_DEPLOYMENT_TARGET = 10.15;
+				MACOSX_DEPLOYMENT_TARGET = 11.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.programario.ColorPalette;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
@@ -363,7 +323,7 @@
 					"$(inherited)",
 					"@executable_path/../Frameworks",
 				);
-				MACOSX_DEPLOYMENT_TARGET = 10.15;
+				MACOSX_DEPLOYMENT_TARGET = 11.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.programario.ColorPalette;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
