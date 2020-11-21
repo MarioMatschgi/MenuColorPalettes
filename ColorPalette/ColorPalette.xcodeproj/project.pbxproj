@@ -11,6 +11,10 @@
 		AC31F41D252CCC92007BDF39 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = AC31F41C252CCC92007BDF39 /* Assets.xcassets */; };
 		AC31F420252CCC92007BDF39 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = AC31F41F252CCC92007BDF39 /* Preview Assets.xcassets */; };
 		AC31F423252CCC92007BDF39 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = AC31F421252CCC92007BDF39 /* Main.storyboard */; };
+		ACB91D8525694F1300584C7C /* MenuItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACB91D8425694F1300584C7C /* MenuItemView.swift */; };
+		ACB91D892569509F00584C7C /* LibraryViews.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACB91D882569509F00584C7C /* LibraryViews.swift */; };
+		ACB91D8E25695A2700584C7C /* PreferencesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACB91D8D25695A2700584C7C /* PreferencesView.swift */; };
+		ACB91D9225695C4200584C7C /* Manager.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACB91D9125695C4200584C7C /* Manager.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -21,6 +25,10 @@
 		AC31F422252CCC92007BDF39 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		AC31F424252CCC92007BDF39 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		AC31F425252CCC92007BDF39 /* ColorPalette.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = ColorPalette.entitlements; sourceTree = "<group>"; };
+		ACB91D8425694F1300584C7C /* MenuItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuItemView.swift; sourceTree = "<group>"; };
+		ACB91D882569509F00584C7C /* LibraryViews.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LibraryViews.swift; sourceTree = "<group>"; };
+		ACB91D8D25695A2700584C7C /* PreferencesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreferencesView.swift; sourceTree = "<group>"; };
+		ACB91D9125695C4200584C7C /* Manager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Manager.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -55,6 +63,7 @@
 			children = (
 				ACD58F1C25437F7500DD4E40 /* ContentViews */,
 				AC31F418252CCC8F007BDF39 /* AppDelegate.swift */,
+				ACB91D9125695C4200584C7C /* Manager.swift */,
 				AC31F41C252CCC92007BDF39 /* Assets.xcassets */,
 				AC31F421252CCC92007BDF39 /* Main.storyboard */,
 				AC31F424252CCC92007BDF39 /* Info.plist */,
@@ -75,6 +84,9 @@
 		ACD58F1C25437F7500DD4E40 /* ContentViews */ = {
 			isa = PBXGroup;
 			children = (
+				ACB91D8425694F1300584C7C /* MenuItemView.swift */,
+				ACB91D8D25695A2700584C7C /* PreferencesView.swift */,
+				ACB91D882569509F00584C7C /* LibraryViews.swift */,
 			);
 			path = ContentViews;
 			sourceTree = "<group>";
@@ -95,6 +107,8 @@
 			dependencies = (
 			);
 			name = ColorPalette;
+			packageProductDependencies = (
+			);
 			productName = ColorPalette;
 			productReference = AC31F415252CCC8F007BDF39 /* ColorPalette.app */;
 			productType = "com.apple.product-type.application";
@@ -122,6 +136,8 @@
 				Base,
 			);
 			mainGroup = AC31F40C252CCC8F007BDF39;
+			packageReferences = (
+			);
 			productRefGroup = AC31F416252CCC8F007BDF39 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -150,6 +166,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				AC31F419252CCC8F007BDF39 /* AppDelegate.swift in Sources */,
+				ACB91D8E25695A2700584C7C /* PreferencesView.swift in Sources */,
+				ACB91D892569509F00584C7C /* LibraryViews.swift in Sources */,
+				ACB91D8525694F1300584C7C /* MenuItemView.swift in Sources */,
+				ACB91D9225695C4200584C7C /* Manager.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

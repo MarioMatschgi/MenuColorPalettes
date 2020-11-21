@@ -17,15 +17,16 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 
     func applicationDidFinishLaunching(_ aNotification: Notification) {
         AppDelegate.instance = self
+        Manager.Setup()
         
         // Create the SwiftUI view that provides the window contents.
-//        let contentView = MenuItemView()
+        let contentView = MenuItemView()
         
         // Create the popover
         let popover = NSPopover()
         popover.contentSize = NSSize(width: 400, height: 400)
         popover.behavior = .transient
-//        popover.contentViewController = NSHostingController(rootView: contentView)
+        popover.contentViewController = NSHostingController(rootView: contentView)
         AppDelegate.popover = popover
         
         // Create the status item
@@ -48,6 +49,10 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 
     func applicationWillTerminate(_ aNotification: Notification) {
         // Insert code here to tear down your application
+    }
+    
+    @IBAction func OnPreferencesClicked(_ sender: Any) {
+        Manager.OpenPreferences()
     }
 }
 
