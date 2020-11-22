@@ -21,7 +21,7 @@ struct PalettePreviewView: View {
 //                ForEach(0..<10) { idx in
 //                    Rectangle().fill(Color.red).aspectRatio(1, contentMode: .fit)
 //                }
-            }).frame(width: cellSize, height: cellSize + 20)
+            }).frame(width: cellSize, height: cellSize)
         }.fixedSize()
     }
 }
