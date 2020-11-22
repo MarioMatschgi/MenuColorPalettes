@@ -8,7 +8,6 @@
 import Foundation
 import SwiftUI
 
-
 extension Array where Element: Equatable
 {
     mutating func move(_ element: Element, to newIndex: Index) {

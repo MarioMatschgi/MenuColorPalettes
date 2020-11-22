@@ -14,16 +14,16 @@ struct MenuItemView: View {
     @State var cellSpacing = CGFloat(UserDefaults.standard.float(forKey: Manager.k_viewCellSpacing))
     @State var cellRadius = CGFloat(UserDefaults.standard.float(forKey: Manager.k_viewCellRadius))
     
+    @State var palettes = Manager.palettes
+    
     var body: some View {
         VStack {
             TitleView()
             
             SectionView("Palettes") {
                 LazyVGrid(columns: Array(repeating: GridItem(.fixed(cellSize), spacing: cellSpacing), count: 4), spacing: cellSpacing) {
-                    ForEach(0..<10) { idx in
-                        VStack {
-                            
-                        }.frame(width: cellSize, height: cellSize, alignment: .center).background(Color.red).cornerRadius(cellSize / 100 * cellRadius)
+                    ForEach(0..<Manager.palettes.count, id: \.self) { idx in
+                        PalettePreviewView(palette: $palettes[idx], cellSize: cellSize).cornerRadius(cellSize / 100 * cellRadius)
                     }
                 }
             }
