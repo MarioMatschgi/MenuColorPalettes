@@ -36,13 +36,22 @@ class Manager {
         
         SetDockVisibility(visible: !UserDefaults.standard.bool(forKey: k_hideDockIcon))
         
-        LoadAllPalettes()
-        
         var testPalette = Palette(palName: "TestPalette", palColors: [])
         testPalette.palColors.append(PaletteColor(colName: "Color1", colColor: SerializableColor(red: 1, green: 0, blue: 0, alpha: 1)))
         testPalette.palColors.append(PaletteColor(colName: "Color2", colColor: SerializableColor(red: 0, green: 1, blue: 0, alpha: 1)))
         testPalette.palColors.append(PaletteColor(colName: "Color3", colColor: SerializableColor(red: 0, green: 0, blue: 1, alpha: 1)))
         SavePalette(palette: testPalette)
+        
+        testPalette = Palette(palName: "TestPalette2", palColors: [])
+        testPalette.palColors.append(PaletteColor(colName: "Color1", colColor: SerializableColor(red: 1, green: 0, blue: 0, alpha: 1)))
+        testPalette.palColors.append(PaletteColor(colName: "Color2", colColor: SerializableColor(red: 0, green: 1, blue: 0, alpha: 1)))
+        testPalette.palColors.append(PaletteColor(colName: "Color3", colColor: SerializableColor(red: 0, green: 0, blue: 1, alpha: 1)))
+        testPalette.palColors.append(PaletteColor(colName: "Color4", colColor: SerializableColor(red: 1, green: 0, blue: 0, alpha: 1)))
+        testPalette.palColors.append(PaletteColor(colName: "Color5", colColor: SerializableColor(red: 0, green: 1, blue: 0, alpha: 1)))
+        testPalette.palColors.append(PaletteColor(colName: "Color6", colColor: SerializableColor(red: 0, green: 0, blue: 1, alpha: 1)))
+        SavePalette(palette: testPalette)
+        
+        LoadAllPalettes()
     }
     
     
