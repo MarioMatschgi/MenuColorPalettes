@@ -11,9 +11,13 @@ import SwiftUI
 class Manager {
     static let k_hideDockIcon = "hideDockIcon"
     static let k_paletteIndicies = "palettes.indicies"
-    static let k_viewCellSize = "view.cellSize"
-    static let k_viewCellSpacing = "view.cellSpacing"
-    static let k_viewCellRadius = "view.cellRadius"
+    
+    static let k_viewCellSize = "menu.view.cellSize"
+    static let k_viewCellSpacing = "menu.view.cellSpacing"
+    static let k_viewCellRadius = "menu.view.cellRadius"
+    static let k_viewColCount = "menu.view.colCount"
+    
+    static let k_previewColCount = "menu.preview.colCount"
     
     static var palettes = [Palette]()
     
@@ -32,6 +36,13 @@ class Manager {
         }
         if UserDefaults.standard.object(forKey: k_viewCellRadius) == nil {
             UserDefaults.standard.setValue(Float(25), forKey: k_viewCellRadius)
+        }
+        if UserDefaults.standard.object(forKey: k_viewColCount) == nil {
+            UserDefaults.standard.setValue(4, forKey: k_viewColCount)
+        }
+        
+        if UserDefaults.standard.object(forKey: k_previewColCount) == nil {
+            UserDefaults.standard.setValue(5, forKey: k_previewColCount)
         }
         
         SetDockVisibility(visible: !UserDefaults.standard.bool(forKey: k_hideDockIcon))
