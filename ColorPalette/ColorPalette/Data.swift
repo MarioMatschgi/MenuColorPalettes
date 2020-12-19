@@ -9,6 +9,11 @@ import Foundation
 import SwiftUI
 
 
+// MARK: OBSERVABLE OBJECT
+class PalettesOO: ObservableObject {
+    @Published var palettes = [Palette]()
+}
+
 // MARK: Palette
 struct Palette: Codable {
     var palName: String

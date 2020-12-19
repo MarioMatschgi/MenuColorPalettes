@@ -21,7 +21,11 @@ struct MenuItemView: View {
     
     @State var showOptions = false
     
-    @State var palettes = Manager.palettes
+    @State var newPalettePopover = false;
+    @State var newPaletteName = "";
+    
+//    @State var palettes = [Palette]()
+    @ObservedObject var palettesOO = PalettesOO()
     
     var body: some View {
         VStack {
@@ -29,8 +33,50 @@ struct MenuItemView: View {
             
             SectionView("Palettes") {
                 LazyVGrid(columns: Array(repeating: GridItem(.fixed(viewCellSize), spacing: viewCellSpacing), count: viewColCount), spacing: viewCellSpacing) {
-                    ForEach(0..<Manager.palettes.count, id: \.self) { idx in
-                        PalettePreviewView(palette: $palettes[idx], colNum: $previewColCount, cellSize: $viewCellSize).cornerRadius(viewCellSize / 100 * viewCellRadius)
+                    ForEach(0..<palettesOO.palettes.count + 1, id: \.self) { idx in
+                        if (idx >= palettesOO.palettes.count) {
+                            Button(action: {
+                                newPalettePopover = true
+                            }, label: {
+                                Image(systemName: "plus.square").font(.system(size: viewCellSize))
+                            }).buttonStyle(PlainButtonStyle())
+                            .popover(isPresented: self.$newPalettePopover, arrowEdge: .bottom) {
+                                VStack {
+                                    Text("Add a new palette")
+                                    TextField("Name", text: $newPaletteName)
+                                    
+                                    HStack {
+                                        Button(action: { newPalettePopover = false }, label: { Text("Cancel") })
+                                        Spacer(minLength: 30)
+                                        Button(action: {
+                                            Manager.AddNewPalette(name: newPaletteName)
+                                            newPalettePopover = false
+                                        }, label: { Text("Add") })
+                                    }
+                                }.padding(20).fixedSize()
+                            }
+                        }
+                        else {
+                            // Works
+                            Text(palettesOO.palettes[idx].palName)
+                            // Does not work
+                            TextField("ASD", text: $palettesOO.palettes[palettesOO.palettes.count - 1].palName).frame(width: 100, height: 100).background(Color.red).contextMenu(ContextMenu(menuItems: {
+                                Button(action: {}, label: {
+                                    Text("Rename")
+                                })
+                            Button(action: { Manager.RemovePalette(name: palettesOO.palettes[idx].palName); print("Len \(palettesOO.palettes.count)") }, label: {
+                                    Text("Delete")
+                                })
+                            }))
+//                            PalettePreviewView(palette: $palettesOO.palettes[palettesOO.palettes.count - 1], colNum: $previewColCount, cellSize: $viewCellSize).cornerRadius(viewCellSize / 100 * viewCellRadius).contextMenu(ContextMenu(menuItems: {
+//                                    Button(action: {}, label: {
+//                                        Text("Rename")
+//                                    })
+//                                Button(action: { Manager.RemovePalette(name: palettesOO.palettes[idx].palName); print("Len \(palettesOO.palettes.count)") }, label: {
+//                                        Text("Delete")
+//                                    })
+//                                }))
+                        }
                     }
                 }
             }
@@ -112,5 +158,7 @@ struct MenuItemView: View {
 struct MenuItemView_Previews: PreviewProvider {
     static var previews: some View {
         MenuItemView()
+            .preferredColorScheme(.dark)
+            
     }
 }

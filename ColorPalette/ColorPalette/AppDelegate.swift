@@ -13,20 +13,22 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     static var instance: AppDelegate?
     static var popover: NSPopover!
     static var statusBarItem: NSStatusItem!
-
+    static var menuItemView: MenuItemView!
 
     func applicationDidFinishLaunching(_ aNotification: Notification) {
         AppDelegate.instance = self
-        Manager.Setup()
         
         // Create the SwiftUI view that provides the window contents.
-        let contentView = MenuItemView()
+        AppDelegate.menuItemView = MenuItemView()
+        
+        // Setup Manager
+        Manager.Setup()
         
         // Create the popover
         let popover = NSPopover()
         popover.contentSize = NSSize(width: 400, height: 400)
         popover.behavior = .transient
-        popover.contentViewController = NSHostingController(rootView: contentView)
+        popover.contentViewController = NSHostingController(rootView: AppDelegate.menuItemView)
         AppDelegate.popover = popover
         
         // Create the status item

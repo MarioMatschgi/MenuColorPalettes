@@ -19,7 +19,7 @@ class Manager {
     
     static let k_previewColCount = "menu.preview.colCount"
     
-    static var palettes = [Palette]()
+//    static var palettes = [Palette]()
     
     
     // MARK: Setup
@@ -65,9 +65,17 @@ class Manager {
         LoadAllPalettes()
     }
     
+    static func AddNewPalette(name: String) {
+        let palette = Palette(palName: name, palColors: [])
+        SavePalette(palette: palette)
+        
+        AppDelegate.menuItemView.palettesOO.palettes.append(palette)
+    }
+    
     
     // MARK: Palettes
     static func LoadAllPalettes() {
+        AppDelegate.menuItemView.palettesOO.palettes = [Palette]()
         var palettesLoaded = [Palette]()
         
         // Load all palettes from folder
@@ -86,32 +94,38 @@ class Manager {
         } catch { print("Failed to read directory: \(error.localizedDescription)") }
         
         // Sort array by index of user defaults
-        palettes = [Palette]()
+        var palettes = [Palette]()
         for _ in 0..<palettesLoaded.count {
             palettes.append(Palette(palName: "", palColors: []))
         }
         var palettesNew = [Palette]()
         var idx = 0
         for palette in palettesLoaded {
-            if UserDefaults.standard.object(forKey: "\(k_paletteIndicies).\(palette.palName)") == nil || UserDefaults.standard.integer(forKey: "\(k_paletteIndicies).\(palette.palName)") >= palettes.count {
+            
                 palettesNew.append(palette)
-            } else {
-                palettes[UserDefaults.standard.integer(forKey: "\(k_paletteIndicies).\(palette.palName)")] = palette
-                idx += 1
-            }
+//            if UserDefaults.standard.object(forKey: "\(k_paletteIndicies).\(palette.palName)") == nil || UserDefaults.standard.integer(forKey: "\(k_paletteIndicies).\(palette.palName)") >= palettes.count {
+//                palettesNew.append(palette)
+//            } else {
+//                print("I \(UserDefaults.standard.integer(forKey: "\(k_paletteIndicies).\(palette.palName)")) C \(palettes.count)")
+//                palettes[UserDefaults.standard.integer(forKey: "\(k_paletteIndicies).\(palette.palName)")] = palette
+//                idx += 1
+//            }
         }
         palettes.removeSubrange(idx..<palettes.count)
         for palette in palettesNew {
             AddPalette(palette: palette)
         }
         
-        dump(palettes)
+        // Update palettes
+        print("CMEN \(AppDelegate.menuItemView.palettesOO.palettes.count) CMAN \(palettes.count)")
+        
         print("Successfully loaded all(\(palettes.count)) color palettes!")
     }
     
     static func AddPalette(palette: Palette) {
-        palettes.append(palette)
-        UserDefaults.standard.setValue(palettes.count - 1, forKey: "\(k_paletteIndicies).\(palette.palName)")
+        AppDelegate.menuItemView.palettesOO.palettes.append(palette)
+        
+        UserDefaults.standard.setValue(AppDelegate.menuItemView.palettesOO.palettes.count - 1, forKey: "\(k_paletteIndicies).\(palette.palName)")
         SavePalette(palette: palette)
     }
     
@@ -154,6 +168,24 @@ class Manager {
         palette?.palName = palName  // Set palName to filename so the user can change palette name by changing filename
         
         return palette
+    }
+    
+    static func RemovePalette(name: String) {
+        var url = assetFilesDirectory(name: "Palettes", shouldCreate: true)
+        url?.appendPathComponent("\(name).json")
+        if (url == nil) {
+            return
+        }
+
+        do {
+            try FileManager.default.removeItem(at: url!)
+        } catch let error as NSError {
+            print("Error: \(error.domain)")
+        }
+//        AppDelegate.menuItemView.palettesOO.palettes.remove(at: UserDefaults.standard.integer(forKey: "\(k_paletteIndicies).\(name)"))
+//        AppDelegate.menuItemView.palettesOO.palettes.removeLast()
+        LoadAllPalettes()
+        UserDefaults.standard.removeObject(forKey: "\(k_paletteIndicies).\(name)")
     }
     
     

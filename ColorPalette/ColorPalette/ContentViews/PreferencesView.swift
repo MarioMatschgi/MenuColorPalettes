@@ -31,8 +31,8 @@ struct PreferencesView: View {
                     .onReceive([self.hideDockIcon].publisher.first()) { (value) in
                         UserDefaults.standard.setValue(value, forKey: Manager.k_hideDockIcon)
                     }
-                    Button("Open palettes folder") { }.frame(maxWidth: .infinity, alignment: .leading)
-                    Button("Reload palettes") { }.frame(maxWidth: .infinity, alignment: .leading)
+                    Button("Open palettes folder") { ShowInFinder(url: assetFilesDirectory(name: "Palettes", shouldCreate: true)) }.frame(maxWidth: .infinity, alignment: .leading)
+                    Button("Reload palettes") { Manager.LoadAllPalettes() }.frame(maxWidth: .infinity, alignment: .leading)
                 }.frame(maxWidth: .infinity, alignment: .leading).padding(.leading, sectionMargin)
             }
             Spacer(minLength: 30)
