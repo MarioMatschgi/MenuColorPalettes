@@ -46,6 +46,37 @@ struct SerializableColor: Codable {
     var blue: Double
     var alpha: Double?
     
+    init() {
+        red = 0
+        green = 0
+        blue = 0
+        alpha = 1
+    }
+    init(red: Double, green: Double, blue: Double) {
+        self.red = red
+        self.green = green
+        self.blue = blue
+        self.alpha = 1
+    }
+    init(red: Double, green: Double, blue: Double, alpha: Double?) {
+        self.red = red
+        self.green = green
+        self.blue = blue
+        self.alpha = alpha
+    }
+    init(color: Color) {
+        let c = color.cgColor!.components!
+        self.red = Double(c[0])
+        self.green = Double(c[1])
+        self.blue = Double(c[2])
+        if c.count > 3 {
+            self.alpha = Double(c[0])
+        }
+        else {
+            self.alpha = 1
+        }
+    }
+    
     var red255: Double {
         get { return red * 255 }
         set { red = newValue / 255}
@@ -113,6 +144,23 @@ struct SerializableColor: Codable {
     }
 
     var color: Color {
-        return Color(red: red, green: green, blue: blue, opacity: alpha ?? 1)
+        get {
+            return Color(red: red, green: green, blue: blue, opacity: alpha ?? 1)
+        }
+        set {
+            let c = newValue.cgColor!.components!
+            self.red = Double(c[0])
+            self.green = Double(c[1])
+            self.blue = Double(c[2])
+            if c.count > 3 {
+                self.alpha = Double(c[0])
+            }
+            else {
+                self.alpha = 1
+            }
+        }
+    }
+    var colorNA: Color {
+        return Color(red: red, green: green, blue: blue, opacity: 1)
     }
 }

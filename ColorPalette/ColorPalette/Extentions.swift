@@ -8,6 +8,14 @@
 import Foundation
 import SwiftUI
 
+extension UserDefaults {
+    static func resetDefaults() {
+        if let bundleID = Bundle.main.bundleIdentifier {
+            UserDefaults.standard.removePersistentDomain(forName: bundleID)
+        }
+    }
+}
+
 extension Array where Element: Equatable
 {
     mutating func move(_ element: Element, to newIndex: Index) {

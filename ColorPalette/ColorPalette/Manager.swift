@@ -12,37 +12,58 @@ class Manager {
     static let k_hideDockIcon = "hideDockIcon"
     static let k_paletteIndicies = "palettes.indicies"
     
-    static let k_viewCellSize = "menu.view.cellSize"
-    static let k_viewCellSpacing = "menu.view.cellSpacing"
-    static let k_viewCellRadius = "menu.view.cellRadius"
-    static let k_viewColCount = "menu.view.colCount"
+    static let k_menu_grid_colCount = "menu.grid.colCount"
+    static let k_menu_grid_cell_size = "menu.grid.cell.size"
+    static let k_menu_grid_cell_spacing = "menu.grid.cell.spacing"
+    static let k_menu_grid_cell_radius = "menu.grid.cell.radius"
     
-    static let k_previewColCount = "menu.preview.colCount"
+    static let k_menu_cell_colCount = "menu.cell.colCount"
     
-//    static var palettes = [Palette]()
+    static let k_view_grid_colCount = "view.grid.colCount"
+    static let k_view_grid_cell_size = "view.grid.cell.size"
+    static let k_view_grid_cell_spacing = "view.grid.cell.spacing"
+    static let k_view_grid_cell_radius = "view.grid.cell.radius"
+    
+//    static var palettesOpen = [Palette:NSWindow]()
     
     
     // MARK: Setup
     static func Setup() {
+//        UserDefaults.resetDefaults()
+        
         // Userdefaults
         if UserDefaults.standard.object(forKey: k_hideDockIcon) == nil {
             UserDefaults.standard.setValue(false, forKey: k_hideDockIcon)
         }
-        if UserDefaults.standard.object(forKey: k_viewCellSize) == nil {
-            UserDefaults.standard.setValue(Float(100), forKey: k_viewCellSize)
+        
+        if UserDefaults.standard.object(forKey: k_menu_grid_colCount) == nil {
+            UserDefaults.standard.setValue(4, forKey: k_menu_grid_colCount)
         }
-        if UserDefaults.standard.object(forKey: k_viewCellSpacing) == nil {
-            UserDefaults.standard.setValue(Float(25), forKey: k_viewCellSpacing)
+        if UserDefaults.standard.object(forKey: k_menu_grid_cell_size) == nil {
+            UserDefaults.standard.setValue(Float(100), forKey: k_menu_grid_cell_size)
         }
-        if UserDefaults.standard.object(forKey: k_viewCellRadius) == nil {
-            UserDefaults.standard.setValue(Float(25), forKey: k_viewCellRadius)
+        if UserDefaults.standard.object(forKey: k_menu_grid_cell_spacing) == nil {
+            UserDefaults.standard.setValue(Float(25), forKey: k_menu_grid_cell_spacing)
         }
-        if UserDefaults.standard.object(forKey: k_viewColCount) == nil {
-            UserDefaults.standard.setValue(4, forKey: k_viewColCount)
+        if UserDefaults.standard.object(forKey: k_menu_grid_cell_radius) == nil {
+            UserDefaults.standard.setValue(Float(25), forKey: k_menu_grid_cell_radius)
         }
         
-        if UserDefaults.standard.object(forKey: k_previewColCount) == nil {
-            UserDefaults.standard.setValue(5, forKey: k_previewColCount)
+        if UserDefaults.standard.object(forKey: k_menu_cell_colCount) == nil {
+            UserDefaults.standard.setValue(5, forKey: k_menu_cell_colCount)
+        }
+        
+        if UserDefaults.standard.object(forKey: k_view_grid_colCount) == nil {
+            UserDefaults.standard.setValue(6, forKey: k_view_grid_colCount)
+        }
+        if UserDefaults.standard.object(forKey: k_view_grid_cell_size) == nil {
+            UserDefaults.standard.setValue(Float(100), forKey: k_view_grid_cell_size)
+        }
+        if UserDefaults.standard.object(forKey: k_view_grid_cell_spacing) == nil {
+            UserDefaults.standard.setValue(Float(25), forKey: k_view_grid_cell_spacing)
+        }
+        if UserDefaults.standard.object(forKey: k_view_grid_cell_radius) == nil {
+            UserDefaults.standard.setValue(Float(25), forKey: k_view_grid_cell_radius)
         }
         
         SetDockVisibility(visible: !UserDefaults.standard.bool(forKey: k_hideDockIcon))
@@ -74,6 +95,21 @@ class Manager {
     
     
     // MARK: Palettes
+    static func ViewPalette(pal: Binding<Palette>) {
+        let win = NSWindow(contentRect: NSRect(x: 0, y: 0, width: 480, height: 300), styleMask: [.titled, .closable, .miniaturizable, .resizable, .fullSizeContentView, .nonactivatingPanel], backing: .buffered, defer: false)
+        win.isReleasedWhenClosed = false
+        win.center()
+        win.title = "Viewing: \(pal.palName.wrappedValue)"
+        win.setFrameAutosaveName(win.title)
+        win.contentView = NSHostingView(rootView: PaletteView(palette: pal))
+        win.makeKeyAndOrderFront(nil)
+        win.level = .floating
+        
+        win.makeKey()
+        
+//        palettesOpen.append(win, forKey: pal)
+    }
+    
     static func LoadAllPalettes() {
         AppDelegate.menuItemView.palettesOO.palettes = [Palette]()
         var palettesLoaded = [Palette]()
@@ -116,9 +152,6 @@ class Manager {
             AddPalette(palette: palette)
         }
         
-        // Update palettes
-        print("CMEN \(AppDelegate.menuItemView.palettesOO.palettes.count) CMAN \(palettes.count)")
-        
         print("Successfully loaded all(\(palettes.count)) color palettes!")
     }
     
@@ -147,6 +180,7 @@ class Manager {
         } catch {
             // Handle error
         }
+        dump(palette.palColors)
     }
     
     static func LoadPalette(palName: String) -> Palette? {
@@ -182,8 +216,7 @@ class Manager {
         } catch let error as NSError {
             print("Error: \(error.domain)")
         }
-//        AppDelegate.menuItemView.palettesOO.palettes.remove(at: UserDefaults.standard.integer(forKey: "\(k_paletteIndicies).\(name)"))
-//        AppDelegate.menuItemView.palettesOO.palettes.removeLast()
+        
         LoadAllPalettes()
         UserDefaults.standard.removeObject(forKey: "\(k_paletteIndicies).\(name)")
     }
