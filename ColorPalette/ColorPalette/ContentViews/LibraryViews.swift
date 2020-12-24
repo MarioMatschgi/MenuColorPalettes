@@ -18,8 +18,32 @@ struct SectionView<Content: View>: View {
     
     var body: some View {
         VStack {
-            Text(title).font(.title).frame(maxWidth: .infinity, alignment: .leading)
             content
+        }
+    }
+}
+struct SectionView2C<Content: View, TitleContent: View>: View {
+    let content: Content
+    let titleContent: TitleContent?
+    var title: String
+    
+    init(_ title: String = "", titleContent: () -> TitleContent, @ViewBuilder content: () -> Content) {
+        self.content = content()
+        self.titleContent = titleContent()
+        self.title = title
+    }
+    
+    var body: some View {
+        VStack {
+            HStack {
+                Text(title).font(.title).frame(maxWidth: .infinity, alignment: .leading)
+                if titleContent != nil {
+                    titleContent
+                }
+            }
+            VStack {
+                content
+            }
         }
     }
 }

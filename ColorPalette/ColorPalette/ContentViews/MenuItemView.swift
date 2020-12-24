@@ -34,7 +34,6 @@ struct MenuItemView: View {
                 LazyVGrid(columns: Array(repeating: GridItem(.fixed(gridCellSize), spacing: gridCellSpacing), count: gridColCount), spacing: gridCellSpacing) {
 
                     ForEach(0..<palettesOO.palettes.count + 1, id: \.self) { idx in
-
                         if (idx >= palettesOO.palettes.count) {
                             Button(action: {
                                 newPalettePopover = true
@@ -138,7 +137,5 @@ struct MenuItemView: View {
 struct MenuItemView_Previews: PreviewProvider {
     static var previews: some View {
         MenuItemView()
-            .preferredColorScheme(.dark)
-        
     }
 }

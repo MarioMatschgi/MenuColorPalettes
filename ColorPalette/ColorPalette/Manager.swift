@@ -180,7 +180,7 @@ class Manager {
         } catch {
             // Handle error
         }
-        dump(palette.palColors)
+//        dump(palette.palColors)
     }
     
     static func LoadPalette(palName: String) -> Palette? {

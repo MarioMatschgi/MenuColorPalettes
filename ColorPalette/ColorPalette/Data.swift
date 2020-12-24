@@ -123,7 +123,7 @@ struct SerializableColor: Codable {
     }
     var hexA: String {
         get {
-            return "\(String(format:"%02X", Int(red * 255)))\(String(format:"%02X", Int(green * 255)))\(String(format:"%02X", Int(blue * 255)))\(String(format:"%02X", Int(alpha == nil ? 1 : alpha! * 255)))"
+            return "\(String(format:"%02X", Int(red * 255)))\(String(format:"%02X", Int(green * 255)))\(String(format:"%02X", Int(blue * 255)))\(String(format: "%02X", Int(alpha == nil ? 255 : alpha! * 255)))"
         }
         set {
             var val = newValue
@@ -153,10 +153,10 @@ struct SerializableColor: Codable {
             self.green = Double(c[1])
             self.blue = Double(c[2])
             if c.count > 3 {
-                self.alpha = Double(c[0])
+                self.alpha = Double(c[3])
             }
             else {
-                self.alpha = 1
+                self.alpha = nil
             }
         }
     }
