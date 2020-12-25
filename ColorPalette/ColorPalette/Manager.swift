@@ -9,6 +9,14 @@ import Foundation
 import SwiftUI
 
 class Manager {
+    static let VERSION = "v1.0"
+    static let COPYRIGHT_DATE = "2020"
+    static let PROJECT_PAGE = "https://www.programario.at"
+    static let TUTORIAL_PAGE = "https://www.programario.at"
+    static let GITHUB_PAGE = "https://github.com/MarioMatschgi/MenuColorPalettes"
+    
+    static let k_loadedDefaultPalettes = "loadedDefaultPalettes"
+    
     static let k_hideDockIcon = "hideDockIcon"
     static let k_paletteIndicies = "palettes.indicies"
     
@@ -21,10 +29,8 @@ class Manager {
     
     static let k_view_grid_colCount = "view.grid.colCount"
     static let k_view_grid_cell_size = "view.grid.cell.size"
-    static let k_view_grid_cell_spacing = "view.grid.cell.spacing"
+    static let k_view_grid_cell_spacing = "view.grid.cell.spacinyg"
     static let k_view_grid_cell_radius = "view.grid.cell.radius"
-    
-//    static var palettesOpen = [Palette:NSWindow]()
     
     
     // MARK: Setup
@@ -32,8 +38,12 @@ class Manager {
 //        UserDefaults.resetDefaults()
         
         // Userdefaults
+        if UserDefaults.standard.object(forKey: k_loadedDefaultPalettes) == nil {
+            UserDefaults.standard.setValue(false, forKey: k_loadedDefaultPalettes)
+        }
+        
         if UserDefaults.standard.object(forKey: k_hideDockIcon) == nil {
-            UserDefaults.standard.setValue(false, forKey: k_hideDockIcon)
+            UserDefaults.standard.setValue(true, forKey: k_hideDockIcon)
         }
         
         if UserDefaults.standard.object(forKey: k_menu_grid_colCount) == nil {
@@ -66,37 +76,56 @@ class Manager {
             UserDefaults.standard.setValue(Float(25), forKey: k_view_grid_cell_radius)
         }
         
+        // Load default palettes if needed
+        if !UserDefaults.standard.bool(forKey: k_loadedDefaultPalettes) {
+            AddDefaultPalettes()
+            UserDefaults.standard.setValue(true, forKey: k_loadedDefaultPalettes)
+        }
+        
         SetDockVisibility(visible: !UserDefaults.standard.bool(forKey: k_hideDockIcon))
-        
-        var testPalette = Palette(palName: "TestPalette", palColors: [])
-        testPalette.palColors.append(PaletteColor(colName: "Color1", colColor: SerializableColor(red: 1, green: 0, blue: 0, alpha: 1)))
-        testPalette.palColors.append(PaletteColor(colName: "Color2", colColor: SerializableColor(red: 0, green: 1, blue: 0, alpha: 1)))
-        testPalette.palColors.append(PaletteColor(colName: "Color3", colColor: SerializableColor(red: 0, green: 0, blue: 1, alpha: 1)))
-        SavePalette(palette: testPalette)
-        
-        testPalette = Palette(palName: "TestPalette2", palColors: [])
-        testPalette.palColors.append(PaletteColor(colName: "Color1", colColor: SerializableColor(red: 1, green: 0, blue: 0, alpha: 1)))
-        testPalette.palColors.append(PaletteColor(colName: "Color2", colColor: SerializableColor(red: 0, green: 1, blue: 0, alpha: 1)))
-        testPalette.palColors.append(PaletteColor(colName: "Color3", colColor: SerializableColor(red: 0, green: 0, blue: 1, alpha: 1)))
-        testPalette.palColors.append(PaletteColor(colName: "Color4", colColor: SerializableColor(red: 1, green: 0, blue: 0, alpha: 1)))
-        testPalette.palColors.append(PaletteColor(colName: "Color5", colColor: SerializableColor(red: 0, green: 1, blue: 0, alpha: 1)))
-        testPalette.palColors.append(PaletteColor(colName: "Color6", colColor: SerializableColor(red: 0, green: 0, blue: 1, alpha: 1)))
-        SavePalette(palette: testPalette)
         
         LoadAllPalettes()
     }
     
-    static func AddNewPalette(name: String) {
-        let palette = Palette(palName: name, palColors: [])
-        SavePalette(palette: palette)
+    // MARK: HTML
+    static func GeneratePalColorsByHTML(html: String) -> [PaletteColor] {
+        var palColors = [PaletteColor]()
         
-        AppDelegate.menuItemView.palettesOO.palettes.append(palette)
+        let htmlArr = html.components(separatedBy: "</div>")
+        var idx = 0
+        for element in htmlArr {
+            let colorString = element.slice(from: "background-color: ", to: ";")?.replacingOccurrences(of: "rgb(", with: "").replacingOccurrences(of: ")", with: "")
+            if colorString == nil {
+                continue
+            }
+            let colors = colorString?.components(separatedBy: ", ")
+            let color = SerializableColor(red: Double(colors![0])!/255, green: Double(colors![1])!/255, blue: Double(colors![2])!/255, alpha: 1)
+            
+            
+            var nameString = element.slice(from: "<span", to: "/span>")
+            nameString = nameString?.slice(from: ">", to: "<")
+            
+            palColors.append(PaletteColor(colName: nameString!, colColor: color))
+            
+            
+            idx += 1
+        }
+        
+        return palColors
     }
     
-    
     // MARK: Palettes
+    static func AddDefaultPalettes() {
+        // Background
+        SavePalette(palette: Palette(palName: "Background", palColors: GeneratePalColorsByHTML(html: f_palette_background)))
+        // UI
+        SavePalette(palette: Palette(palName: "UI", palColors: GeneratePalColorsByHTML(html: f_palette_ui)))
+        // Light
+        SavePalette(palette: Palette(palName: "Light", palColors: GeneratePalColorsByHTML(html: f_palette_light)))
+    }
+    
     static func ViewPalette(pal: Binding<Palette>) {
-        let win = NSWindow(contentRect: NSRect(x: 0, y: 0, width: 480, height: 300), styleMask: [.titled, .closable, .miniaturizable, .resizable, .fullSizeContentView, .nonactivatingPanel], backing: .buffered, defer: false)
+        let win = NSWindow(contentRect: NSRect(x: 0, y: 0, width: 480, height: 300), styleMask: [.titled, .closable, .resizable, .miniaturizable, .resizable, .fullSizeContentView, .nonactivatingPanel], backing: .buffered, defer: false)
         win.isReleasedWhenClosed = false
         win.center()
         win.title = "Viewing: \(pal.palName.wrappedValue)"
@@ -108,6 +137,13 @@ class Manager {
         win.makeKey()
         
 //        palettesOpen.append(win, forKey: pal)
+    }
+    
+    static func AddNewPalette(name: String) {
+        let palette = Palette(palName: name, palColors: [])
+        SavePalette(palette: palette)
+        
+        AppDelegate.menuItemView.palettesOO.palettes.append(palette)
     }
     
     static func LoadAllPalettes() {

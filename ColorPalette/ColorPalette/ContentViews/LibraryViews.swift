@@ -18,6 +18,7 @@ struct SectionView<Content: View>: View {
     
     var body: some View {
         VStack {
+            Text(title).font(.title).frame(maxWidth: .infinity, alignment: .leading)
             content
         }
     }

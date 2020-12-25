@@ -22,6 +22,7 @@ struct PaletteView: View {
     @State var modifyColorColor = Color.white
     
     @State var showOptions = false
+    @State var showImport = false
     
     @State var updater: Bool = false
     
@@ -37,29 +38,67 @@ struct PaletteView: View {
     
     var body: some View {
         VStack {
-            SectionView2C("Colors", titleContent: {
-                HStack {
-                    Picker(selection: $selectedFormatIdx.onChange({ newSelection in
-                        UserDefaults.standard.setValue(newSelection, forKey: "\(palette.palName).colFormatIdx")
-                    }), label: Text("Copy format").frame(minWidth: 100, alignment: .leading)) {
-                        ForEach (0..<formats.count, id: \.self) {
-                            idx in
-                            Text(formats[idx].replacingOccurrences(of: "§", with: "")).tag(idx)
+            ScrollView() {
+                SectionView2C("Colors", titleContent: {
+                    HStack {
+                        Picker(selection: $selectedFormatIdx.onChange({ newSelection in
+                            UserDefaults.standard.setValue(newSelection, forKey: "\(palette.palName).colFormatIdx")
+                        }), label: Text("Copy format").frame(minWidth: 100, alignment: .leading)) {
+                            ForEach (0..<formats.count, id: \.self) {
+                                idx in
+                                Text(formats[idx].replacingOccurrences(of: "§", with: "")).tag(idx)
+                            }
+                        }.frame(minWidth: 250)
+                        .onAppear() {
+                            self.selectedFormatIdx = UserDefaults.standard.integer(forKey: "\(palette.palName).colFormatIdx").clamped(to: 0...formats.count-2)
                         }
-                    }.frame(minWidth: 250)
-                    .onAppear() {
-                        self.selectedFormatIdx = UserDefaults.standard.integer(forKey: "\(palette.palName).colFormatIdx").clamped(to: 0...formats.count-2)
+                        Button("\(showImport ? "Hide" : "Show") import") { showImport = !showImport }
+                        Button("\(showOptions ? "Hide" : "Show") options") { showOptions = !showOptions }
                     }
-                    Button("\(showOptions ? "Hide" : "Show") options") { showOptions = !showOptions }
-                }
-            }) {
-                VStack {
-                    PaletteColorGridView(palette: $palette, colCount: $colCount, cellSize: $cellSize, cellSpacing: $cellSpacing, cellRadius: $cellRadius, modifyType: $modifyType, modifyColorIdx: $modifyColorIdx, modifyColorName: $modifyColorName, modifyColorColor: $modifyColorColor, selectedFormatIdx: $selectedFormatIdx, formats: $formats)
+                }) {
+                    VStack {
+                        PaletteImportView(palette: $palette, showImport: $showImport)
+            
+                        PaletteOptionsView(palette: $palette, showOptions: $showOptions, colCount: $colCount, cellSize: $cellSize, cellSpacing: $cellSpacing, cellRadius: $cellRadius, gridUpdater: $updater)
+                        
+                        Spacer(minLength: 25)
+                        
+                        PaletteColorGridView(palette: $palette, colCount: $colCount, cellSize: $cellSize, cellSpacing: $cellSpacing, cellRadius: $cellRadius, modifyType: $modifyType, modifyColorIdx: $modifyColorIdx, modifyColorName: $modifyColorName, modifyColorColor: $modifyColorColor, selectedFormatIdx: $selectedFormatIdx, formats: $formats)
+                    }
+                }.padding()
+            }.fixedSize(horizontal: true, vertical: false)
+        }
+    }
+}
+
+// MARK: IMPORT-VIEW
+struct PaletteImportView: View {
+    @Binding var palette: Palette
+    
+    @Binding var showImport: Bool
+    
+    @State var flatUIColorsCode = ""
+    
+    var body: some View {
+        VStack {
+            if (showImport) {
+                SectionView("Import palette") {
+                    HStack {
+                        Text("FlatUIColors code").frame(width: 150)
+                        TextField("FlatUIColors code", text: $flatUIColorsCode).frame(maxWidth: 200)
+                    }
+                    HStack {
+                        Button("Cancel", action: { showImport = false })
+                        Button("Import colors", action: {
+                            palette.palColors.append(contentsOf: Manager.GeneratePalColorsByHTML(html: flatUIColorsCode))
+                            Manager.SavePalette(palette: palette)
+                            
+                            showImport = false
+                        })
+                    }
                 }
             }
-            
-            PaletteOptionsView(showOptions: $showOptions, colCount: $colCount, cellSize: $cellSize, cellSpacing: $cellSpacing, cellRadius: $cellRadius)
-        }.padding().fixedSize()
+        }
     }
 }
 
@@ -89,7 +128,11 @@ struct PaletteModifyColorView: View {
 
                     Spacer().frame(maxHeight: 25)
                     HStack {
-                        Button(action: { modifyType = .None }, label: { Text("Cancel") })
+                        Button(action: {
+                            withAnimation {
+                                modifyType = .None
+                            }
+                        }, label: { Text("Cancel") })
                         Spacer()
                         Button(action: {
                             if modifyType == .Edit {
@@ -109,7 +152,9 @@ struct PaletteModifyColorView: View {
                             
                             Manager.SavePalette(palette: palette)
                             
-                            modifyType = .None
+                            withAnimation {
+                                modifyType = .None
+                            }
                         }, label: { Text("Ok") })
                     }
                 }
@@ -145,13 +190,17 @@ struct PaletteColorGridView: View {
                         modifyColorName = "New color"
                         modifyColorIdx = -1
                             
-                        modifyType = .Add
+                        withAnimation {
+                            modifyType = .Add
+                        }
                     }, label: {
                         if modifyType == .Add {
-                            PaletteModifyColorView(palette: $palette, modifyType: $modifyType, modifyColorIdx: $modifyColorIdx, modifyColorName: $modifyColorName, modifyColorColor: $modifyColorColor)
+                            VStack {
+                                PaletteModifyColorView(palette: $palette, modifyType: $modifyType, modifyColorIdx: $modifyColorIdx, modifyColorName: $modifyColorName, modifyColorColor: $modifyColorColor)
+                            }.transition(.opacity)
                         }
                         else {
-                            Image(systemName: "plus.square").font(.system(size: cellSize / 2)).frame(width: cellSize, height: cellSize)
+                            Image(systemName: "plus.square").font(.system(size: cellSize / 2)).frame(width: cellSize, height: cellSize).transition(.opacity)
                         }
                     }).buttonStyle(PlainButtonStyle())
                 }
@@ -165,14 +214,16 @@ struct PaletteColorGridView: View {
                         else {
                             VStack {
                                 Rectangle().fill(palette.palColors[idx].colColor.colorNA).frame(width: cellSize, height: cellSize).cornerRadius(cellSize / 100 * cellRadius)
-                                Text("\(palette.palColors[idx].colName) C \(palette.palColors.count)")
+                                Text("\(palette.palColors[idx].colName)")
                             }.contextMenu(ContextMenu(menuItems: {
                                 Button(action: {
                                     modifyColorName = palette.palColors[idx].colName
                                     modifyColorColor = palette.palColors[idx].colColor.color
                                     modifyColorIdx = idx
                                     
-                                    modifyType = .Edit
+                                    withAnimation {
+                                        modifyType = .Edit
+                                    }
                                 }, label: { Text("Edit") })
                                 Button(action: {
                                     palette.palColors.remove(at: idx)
@@ -181,7 +232,7 @@ struct PaletteColorGridView: View {
                                 }, label: { Text("Delete") })
                             }))
                         }
-                    }).buttonStyle(PlainButtonStyle())
+                    }).buttonStyle(PlainButtonStyle()).frame(maxHeight: .infinity, alignment: .top)
                 }
             }
         }
@@ -214,6 +265,8 @@ struct PaletteColorGridView: View {
 
 // MARK: OPTIONS-VIEW
 struct PaletteOptionsView: View {
+    @Binding var palette: Palette
+    
     let optionsMargin = CGFloat(100)
     let optionsMinWidth = CGFloat(300)
     
@@ -225,9 +278,21 @@ struct PaletteOptionsView: View {
     @Binding var cellSpacing: CGFloat
     @Binding var cellRadius: CGFloat
     
+    @Binding var gridUpdater: Bool
+    
     var body: some View {
         if (showOptions) {
-            Spacer(minLength: 25)
+            SectionView("Danger-Zone") {
+                HStack {
+                    Button(action: {
+                        palette.palColors = [PaletteColor]()
+                        
+                        gridUpdater.toggle()
+                    }, label: {
+                        Text("Remove all colors")
+                    })
+                }
+            }
             SectionView("View options") {
                 HStack {
                     Text("Size").frame(width: optionsMargin, alignment: .leading)

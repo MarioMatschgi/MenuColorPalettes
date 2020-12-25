@@ -31,8 +31,16 @@ struct PreferencesView: View {
                     .onReceive([self.hideDockIcon].publisher.first()) { (value) in
                         UserDefaults.standard.setValue(value, forKey: Manager.k_hideDockIcon)
                     }
-                    Button("Open palettes folder") { ShowInFinder(url: assetFilesDirectory(name: "Palettes", shouldCreate: true)) }.frame(maxWidth: .infinity, alignment: .leading)
-                    Button("Reload palettes") { Manager.LoadAllPalettes() }.frame(maxWidth: .infinity, alignment: .leading)
+                    HStack {
+                        Button("Open palettes folder") { ShowInFinder(url: assetFilesDirectory(name: "Palettes", shouldCreate: true)) }
+                        Spacer().frame(width: 20)
+                        Button("Reload palettes") { Manager.LoadAllPalettes() }
+                        Spacer().frame(width: 20)
+                        Button("Add default palettes") {
+                            Manager.AddDefaultPalettes()
+                            Manager.LoadAllPalettes()
+                        }
+                    }.frame(maxWidth: .infinity, alignment: .leading)
                 }.frame(maxWidth: .infinity, alignment: .leading).padding(.leading, sectionMargin)
             }
             Spacer(minLength: 30)
@@ -40,12 +48,27 @@ struct PreferencesView: View {
             SectionView {
                 Text("Hints:")
                 Text("Command click on a color to copy it without switching focus to MenueColorPalettes")
+                Text("Rightclick on a color or palette to edit or delete it")
+                Text("To import colors from flatuicolors.com go to their palette, get the sourcecode and copy\nthe div with the class \"colors\"")
+                HStack {
+                    Link(destination: URL(string: Manager.PROJECT_PAGE)!, label: {
+                        Text("Project page")
+                    })
+                    Spacer().frame(width: 20)
+                    Link(destination: URL(string: Manager.TUTORIAL_PAGE)!, label: {
+                        Text("Tutorial")
+                    })
+                    Spacer().frame(width: 20)
+                    Link(destination: URL(string: Manager.GITHUB_PAGE)!, label: {
+                        Text("GitHub page")
+                    })
+                }
             }
-            
-            
+            Spacer(minLength: 30)
             SectionView {
-                Text("MenuColorPalettes © 2020 Mario Elsnig & Peter Elsnig")
                 Text("Default color palettes from flatuicolors.com")
+                Spacer(minLength: 10)
+                Text("MenuColorPalettes \(Manager.VERSION) © \(Manager.COPYRIGHT_DATE) Mario Elsnig")
             }
         }.fixedSize().padding()
     }

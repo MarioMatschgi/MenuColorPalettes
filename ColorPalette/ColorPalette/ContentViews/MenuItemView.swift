@@ -40,38 +40,23 @@ struct MenuItemView: View {
                                 newPaletteName = "New palette"
                                 modifyColorIdx = -1
                                 
-                                modifyType = .Add
+                                withAnimation {
+                                    modifyType = .Add
+                                }
                             }, label: {
                                 if modifyType == .Add {
-                                    MenuItemModifyView(newPaletteName: $newPaletteName, modifyType: $modifyType)
+//                                    MenuItemModifyView(newPaletteName: $newPaletteName, modifyType: $modifyType)
+                                    MenuItemModifyView(newPaletteName: $newPaletteName, modifyType: $modifyType, modifyColorIdx: $modifyColorIdx, palettes: $palettesOO.palettes)
                                 }
                                 else {
                                     Image(systemName: "plus.square").font(.system(size: gridCellSize / 2)).frame(width: gridCellSize, height: gridCellSize)
                                 }
                             }).buttonStyle(PlainButtonStyle())
-//                            .popover(isPresented: self.$newPalettePopover, arrowEdge: .bottom) {
-//                                VStack {
-//                                    Text("Add a new palette")
-//                                    TextField("Name", text: $newPaletteName)
-//
-//                                    HStack {
-//                                        Button(action: { newPalettePopover = false }, label: { Text("Cancel") })
-//                                        Spacer(minLength: 30)
-//                                        Button(action: {
-//                                            Manager.AddNewPalette(name: newPaletteName)
-//                                            newPalettePopover = false
-//                                        }, label: { Text("Add") })
-//                                    }
-//                                }.padding(20).fixedSize()
-//                            }
                         }
                         else {
                             Safe(self.$palettesOO.palettes, index: idx) { binding in
-                                
-                                
-                                
                                 if modifyType == .Edit && modifyColorIdx == idx {
-                                    MenuItemModifyView(newPaletteName: $newPaletteName, modifyType: $modifyType)//.frame(width: gridCellSize, height: gridCellSize)
+                                    MenuItemModifyView(newPaletteName: $newPaletteName, modifyType: $modifyType, modifyColorIdx: $modifyColorIdx, palettes: $palettesOO.palettes)//.frame(width: gridCellSize, height: gridCellSize)
                                 }
                                 else {
                                     Button(action: { Manager.ViewPalette(pal: $palettesOO.palettes[idx]) }, label: {
@@ -80,14 +65,14 @@ struct MenuItemView: View {
                                                 newPaletteName = palettesOO.palettes[idx].palName
                                                 modifyColorIdx = idx
                                                 
-                                                modifyType = .Edit
+                                                withAnimation {
+                                                    modifyType = .Edit
+                                                }
                                             }, label: { Text("Rename") })
                                             Button(action: { Manager.RemovePalette(name: palettesOO.palettes[idx].palName) }, label: { Text("Delete") })
                                         }))
                                     }).buttonStyle(PlainButtonStyle())
                                 }
-                                
-                                
                             }
                         }
                     }
@@ -162,6 +147,10 @@ struct MenuItemModifyView: View {
     @Binding var newPaletteName: String
     
     @Binding var modifyType: ModifyType
+    @Binding var modifyColorIdx: Int
+    
+    
+    @Binding var palettes: [Palette]
     
     var body: some View {
         VStack {
@@ -172,11 +161,20 @@ struct MenuItemModifyView: View {
 
                     Spacer().frame(maxHeight: 25)
                     HStack {
-                        Button(action: { modifyType = .None }, label: { Text("Cancel") })
+                        Button(action: {
+                            withAnimation {
+                                modifyType = .None
+                            }
+                        }, label: { Text("Cancel") })
                         Spacer()
                         Button(action: {
                             if modifyType == .Edit {
                                 print("Changed pal: \(newPaletteName)")
+                                
+                                var pal = palettes[modifyColorIdx]
+                                Manager.RemovePalette(name: pal.palName)
+                                pal.palName = newPaletteName
+                                Manager.AddPalette(palette: pal)
                             }
                             else if modifyType == .Add {
                                 print("Added pal: \(newPaletteName)")
@@ -187,7 +185,9 @@ struct MenuItemModifyView: View {
                                 print("ERROR: Invalid pal modifyType!")
                             }
                             
-                            modifyType = .None
+                            withAnimation {
+                                modifyType = .None
+                            }
                         }, label: { Text("Ok") })
                     }
                 }
