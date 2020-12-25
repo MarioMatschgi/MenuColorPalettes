@@ -17,10 +17,9 @@ struct PaletteView: View {
     @State var cellRadius = CGFloat(UserDefaults.standard.float(forKey: Manager.k_view_grid_cell_radius))
     
     @State var modifyType: ModifyType = .None
-    
-    @State var editColorIdx = -1
-    @State var newColorName = ""
-    @State var newColorColor = Color.white
+    @State var modifyColorIdx = -1
+    @State var modifyColorName = ""
+    @State var modifyColorColor = Color.white
     
     @State var showOptions = false
     
@@ -55,7 +54,7 @@ struct PaletteView: View {
                 }
             }) {
                 VStack {
-                    PaletteColorGridView(palette: $palette, colCount: $colCount, cellSize: $cellSize, cellSpacing: $cellSpacing, cellRadius: $cellRadius, modifyType: $modifyType, editColorIdx: $editColorIdx, newColorName: $newColorName, newColorColor: $newColorColor, selectedFormatIdx: $selectedFormatIdx, formats: $formats)
+                    PaletteColorGridView(palette: $palette, colCount: $colCount, cellSize: $cellSize, cellSpacing: $cellSpacing, cellRadius: $cellRadius, modifyType: $modifyType, modifyColorIdx: $modifyColorIdx, modifyColorName: $modifyColorName, modifyColorColor: $modifyColorColor, selectedFormatIdx: $selectedFormatIdx, formats: $formats)
                 }
             }
             
@@ -75,37 +74,37 @@ enum ModifyType {
 struct PaletteModifyColorView: View {
     @Binding var palette: Palette
     
-    @Binding var editColorIdx: Int
-    
     @Binding var modifyType: ModifyType
-    
-    @Binding var newColorName: String
-    @Binding var newColorColor: Color
+    @Binding var modifyColorIdx: Int
+    @Binding var modifyColorName: String
+    @Binding var modifyColorColor: Color
     
     var body: some View {
         VStack {
             if modifyType != .None {
                 VStack {
-                    TextField("Name", text: $newColorName)
-                    ColorPicker("Color", selection: $newColorColor)
+                    Spacer()
+                    TextField("Name", text: $modifyColorName)
+                    ColorPicker("Color", selection: $modifyColorColor)
 
+                    Spacer().frame(maxHeight: 25)
                     HStack {
                         Button(action: { modifyType = .None }, label: { Text("Cancel") })
-                        Spacer(minLength: 30)
+                        Spacer()
                         Button(action: {
                             if modifyType == .Edit {
-                                print("Changed: \(newColorName) \(newColorColor)")
+                                print("Changed col: \(modifyColorName) \(modifyColorColor)")
                                 
-                                palette.palColors[editColorIdx].colName = newColorName
-                                palette.palColors[editColorIdx].colColor.color = newColorColor
+                                palette.palColors[modifyColorIdx].colName = modifyColorName
+                                palette.palColors[modifyColorIdx].colColor.color = modifyColorColor
                             }
                             else if modifyType == .Add {
-                                print("Added: \(newColorName) \(newColorColor)")
+                                print("Added col: \(modifyColorName) \(modifyColorColor)")
                                 
-                                palette.palColors.append(PaletteColor(colName: newColorName, colColor: SerializableColor(color: newColorColor)))
+                                palette.palColors.append(PaletteColor(colName: modifyColorName, colColor: SerializableColor(color: modifyColorColor)))
                             }
                             else {
-                                print("ERROR: Invalid modifyType!")
+                                print("ERROR: Invalid col modifyType!")
                             }
                             
                             Manager.SavePalette(palette: palette)
@@ -113,7 +112,7 @@ struct PaletteModifyColorView: View {
                             modifyType = .None
                         }, label: { Text("Ok") })
                     }
-                }.fixedSize()
+                }
             }
         }
     }
@@ -129,10 +128,9 @@ struct PaletteColorGridView: View {
     @Binding var cellRadius: CGFloat
     
     @Binding var modifyType: ModifyType
-    
-    @Binding var editColorIdx: Int
-    @Binding var newColorName: String
-    @Binding var newColorColor: Color
+    @Binding var modifyColorIdx: Int
+    @Binding var modifyColorName: String
+    @Binding var modifyColorColor: Color
     
     @Binding var selectedFormatIdx: Int
     @Binding var formats: [String]
@@ -144,13 +142,13 @@ struct PaletteColorGridView: View {
             ForEach(0..<palette.palColors.count + 1, id: \.self) { idx in
                 if (idx >= palette.palColors.count) {
                     Button(action: {
-                        newColorName = "New color"
-                        editColorIdx = -1
+                        modifyColorName = "New color"
+                        modifyColorIdx = -1
                             
                         modifyType = .Add
                     }, label: {
                         if modifyType == .Add {
-                            PaletteModifyColorView(palette: $palette, editColorIdx: $editColorIdx, modifyType: $modifyType, newColorName: $newColorName, newColorColor: $newColorColor)
+                            PaletteModifyColorView(palette: $palette, modifyType: $modifyType, modifyColorIdx: $modifyColorIdx, modifyColorName: $modifyColorName, modifyColorColor: $modifyColorColor)
                         }
                         else {
                             Image(systemName: "plus.square").font(.system(size: cellSize / 2)).frame(width: cellSize, height: cellSize)
@@ -161,8 +159,8 @@ struct PaletteColorGridView: View {
                     Button(action: {
                         CopyColor(col: palette.palColors[idx])
                     }, label: {
-                        if modifyType == .Edit && editColorIdx == idx {
-                            PaletteModifyColorView(palette: $palette, editColorIdx: $editColorIdx, modifyType: $modifyType, newColorName: $newColorName, newColorColor: $newColorColor)
+                        if modifyType == .Edit && modifyColorIdx == idx {
+                            PaletteModifyColorView(palette: $palette, modifyType: $modifyType, modifyColorIdx: $modifyColorIdx, modifyColorName: $modifyColorName, modifyColorColor: $modifyColorColor)
                         }
                         else {
                             VStack {
@@ -170,9 +168,9 @@ struct PaletteColorGridView: View {
                                 Text("\(palette.palColors[idx].colName) C \(palette.palColors.count)")
                             }.contextMenu(ContextMenu(menuItems: {
                                 Button(action: {
-                                    newColorName = palette.palColors[idx].colName
-                                    newColorColor = palette.palColors[idx].colColor.color
-                                    editColorIdx = idx
+                                    modifyColorName = palette.palColors[idx].colName
+                                    modifyColorColor = palette.palColors[idx].colColor.color
+                                    modifyColorIdx = idx
                                     
                                     modifyType = .Edit
                                 }, label: { Text("Edit") })

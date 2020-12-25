@@ -21,7 +21,8 @@ struct MenuItemView: View {
     
     @State var showOptions = false
     
-    @State var newPalettePopover = false;
+    @State var modifyType: ModifyType = .None
+    @State var modifyColorIdx: Int = -1
     @State var newPaletteName = "";
     
     @ObservedObject var palettesOO = PalettesOO()
@@ -36,34 +37,57 @@ struct MenuItemView: View {
                     ForEach(0..<palettesOO.palettes.count + 1, id: \.self) { idx in
                         if (idx >= palettesOO.palettes.count) {
                             Button(action: {
-                                newPalettePopover = true
+                                newPaletteName = "New palette"
+                                modifyColorIdx = -1
+                                
+                                modifyType = .Add
                             }, label: {
-                                Image(systemName: "plus.square").font(.system(size: gridCellSize / 2))
+                                if modifyType == .Add {
+                                    MenuItemModifyView(newPaletteName: $newPaletteName, modifyType: $modifyType)
+                                }
+                                else {
+                                    Image(systemName: "plus.square").font(.system(size: gridCellSize / 2)).frame(width: gridCellSize, height: gridCellSize)
+                                }
                             }).buttonStyle(PlainButtonStyle())
-                            .popover(isPresented: self.$newPalettePopover, arrowEdge: .bottom) {
-                                VStack {
-                                    Text("Add a new palette")
-                                    TextField("Name", text: $newPaletteName)
-
-                                    HStack {
-                                        Button(action: { newPalettePopover = false }, label: { Text("Cancel") })
-                                        Spacer(minLength: 30)
-                                        Button(action: {
-                                            Manager.AddNewPalette(name: newPaletteName)
-                                            newPalettePopover = false
-                                        }, label: { Text("Add") })
-                                    }
-                                }.padding(20).fixedSize()
-                            }
+//                            .popover(isPresented: self.$newPalettePopover, arrowEdge: .bottom) {
+//                                VStack {
+//                                    Text("Add a new palette")
+//                                    TextField("Name", text: $newPaletteName)
+//
+//                                    HStack {
+//                                        Button(action: { newPalettePopover = false }, label: { Text("Cancel") })
+//                                        Spacer(minLength: 30)
+//                                        Button(action: {
+//                                            Manager.AddNewPalette(name: newPaletteName)
+//                                            newPalettePopover = false
+//                                        }, label: { Text("Add") })
+//                                    }
+//                                }.padding(20).fixedSize()
+//                            }
                         }
                         else {
                             Safe(self.$palettesOO.palettes, index: idx) { binding in
-                                Button(action: { Manager.ViewPalette(pal: $palettesOO.palettes[idx]) }, label: {
-                                    PalettePreviewView(palette: binding, colNum: $cellColCount, cellSize: $gridCellSize).cornerRadius(gridCellSize / 100 * gridCellRadius).contextMenu(ContextMenu(menuItems: {
-                                        Button(action: {}, label: { Text("Rename") })
-                                        Button(action: { Manager.RemovePalette(name: palettesOO.palettes[idx].palName) }, label: { Text("Delete") })
-                                    }))
-                                }).buttonStyle(PlainButtonStyle())
+                                
+                                
+                                
+                                if modifyType == .Edit && modifyColorIdx == idx {
+                                    MenuItemModifyView(newPaletteName: $newPaletteName, modifyType: $modifyType)//.frame(width: gridCellSize, height: gridCellSize)
+                                }
+                                else {
+                                    Button(action: { Manager.ViewPalette(pal: $palettesOO.palettes[idx]) }, label: {
+                                        PalettePreviewView(palette: binding, colNum: $cellColCount, cellSize: $gridCellSize).cornerRadius(gridCellSize / 100 * gridCellRadius).contextMenu(ContextMenu(menuItems: {
+                                            Button(action: {
+                                                newPaletteName = palettesOO.palettes[idx].palName
+                                                modifyColorIdx = idx
+                                                
+                                                modifyType = .Edit
+                                            }, label: { Text("Rename") })
+                                            Button(action: { Manager.RemovePalette(name: palettesOO.palettes[idx].palName) }, label: { Text("Delete") })
+                                        }))
+                                    }).buttonStyle(PlainButtonStyle())
+                                }
+                                
+                                
                             }
                         }
                     }
@@ -131,6 +155,44 @@ struct MenuItemView: View {
     }
     func SetVal(value: Int, key: String) {
         UserDefaults.standard.setValue(value, forKey: key)
+    }
+}
+
+struct MenuItemModifyView: View {
+    @Binding var newPaletteName: String
+    
+    @Binding var modifyType: ModifyType
+    
+    var body: some View {
+        VStack {
+            if modifyType != .None {
+                VStack {
+                    Spacer()
+                    TextField("Name", text: $newPaletteName)
+
+                    Spacer().frame(maxHeight: 25)
+                    HStack {
+                        Button(action: { modifyType = .None }, label: { Text("Cancel") })
+                        Spacer()
+                        Button(action: {
+                            if modifyType == .Edit {
+                                print("Changed pal: \(newPaletteName)")
+                            }
+                            else if modifyType == .Add {
+                                print("Added pal: \(newPaletteName)")
+                                
+                                Manager.AddNewPalette(name: newPaletteName)
+                            }
+                            else {
+                                print("ERROR: Invalid pal modifyType!")
+                            }
+                            
+                            modifyType = .None
+                        }, label: { Text("Ok") })
+                    }
+                }
+            }
+        }
     }
 }
 
