@@ -9,7 +9,7 @@ import Foundation
 import SwiftUI
 
 class Manager {
-    static let VERSION = "v1.0"
+    static var VERSION = ""
     static let COPYRIGHT_DATE = "2020"
     static let PROJECT_PAGE = "https://www.programario.at"
     static let TUTORIAL_PAGE = "https://www.programario.at"
@@ -35,6 +35,7 @@ class Manager {
     
     // MARK: Setup
     static func Setup() {
+        VERSION = "v\(Bundle.main.infoDictionary!["CFBundleShortVersionString"]!)"
 //        UserDefaults.resetDefaults()
         
         // Userdefaults
