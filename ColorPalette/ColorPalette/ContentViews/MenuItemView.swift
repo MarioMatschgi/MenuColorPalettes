@@ -175,18 +175,27 @@ struct MenuItemModifyView: View {
                                 Manager.RemovePalette(name: pal.palName)
                                 pal.palName = newPaletteName
                                 Manager.AddPalette(palette: pal)
+                                
+                                withAnimation {
+                                    modifyType = .None
+                                }
                             }
                             else if modifyType == .Add {
-                                print("Added pal: \(newPaletteName)")
-                                
-                                Manager.AddNewPalette(name: newPaletteName)
+                                if IsFileNameValid(name: newPaletteName) && !palettes.contains(where: { pal in pal.palName == newPaletteName }) {
+                                    print("Added pal: \(newPaletteName)")
+                                    
+                                    Manager.AddNewPalette(name: newPaletteName)
+                                    
+                                    withAnimation {
+                                        modifyType = .None
+                                    }
+                                }
+                                else {
+                                    print("ERROR: Invalid palName or pal with this name (\(newPaletteName)) exists")
+                                }
                             }
                             else {
                                 print("ERROR: Invalid pal modifyType!")
-                            }
-                            
-                            withAnimation {
-                                modifyType = .None
                             }
                         }, label: { Text("Ok") })
                     }

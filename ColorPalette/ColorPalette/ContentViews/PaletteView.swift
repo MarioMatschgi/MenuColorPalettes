@@ -140,20 +140,29 @@ struct PaletteModifyColorView: View {
                                 
                                 palette.palColors[modifyColorIdx].colName = modifyColorName
                                 palette.palColors[modifyColorIdx].colColor.color = modifyColorColor
+                                
+                                Manager.SavePalette(palette: palette)
+                                withAnimation {
+                                    modifyType = .None
+                                }
                             }
                             else if modifyType == .Add {
-                                print("Added col: \(modifyColorName) \(modifyColorColor)")
-                                
-                                palette.palColors.append(PaletteColor(colName: modifyColorName, colColor: SerializableColor(color: modifyColorColor)))
+                                if IsFileNameValid(name: modifyColorName) && !palette.palColors.contains(where: { col in col.colName == modifyColorName }) {
+                                    print("Added col: \(modifyColorName) \(modifyColorColor)")
+                                    
+                                    palette.palColors.append(PaletteColor(colName: modifyColorName, colColor: SerializableColor(color: modifyColorColor)))
+                                    
+                                    Manager.SavePalette(palette: palette)
+                                    withAnimation {
+                                        modifyType = .None
+                                    }
+                                }
+                                else {
+                                    print("ERROR: Invalid colName or col with this name (\(modifyColorName)) exists")
+                                }
                             }
                             else {
                                 print("ERROR: Invalid col modifyType!")
-                            }
-                            
-                            Manager.SavePalette(palette: palette)
-                            
-                            withAnimation {
-                                modifyType = .None
                             }
                         }, label: { Text("Ok") })
                     }

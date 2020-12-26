@@ -8,6 +8,21 @@
 import Foundation
 import SwiftUI
 
+let invalidFileChars = [":", "/", "\\", "\0"]
+func IsFileNameValid(name: String, path: URL) -> Bool{
+    if !IsFileNameValid(name: name) {    // Check if name ocntains invalid char
+        return false
+    }
+    if FileManager.default.fileExists(atPath: path.path) {    // Check if file exists
+        return false
+    }
+    
+    return true
+}
+func IsFileNameValid(name: String) -> Bool{
+    return !invalidFileChars.contains(where: name.contains)
+}
+
 extension UserDefaults {
     static func resetDefaults() {
         if let bundleID = Bundle.main.bundleIdentifier {
