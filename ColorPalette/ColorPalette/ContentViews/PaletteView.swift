@@ -209,7 +209,7 @@ struct PaletteColorGridView: View {
                             }.transition(.opacity)
                         }
                         else {
-                            Image(systemName: "plus.square").font(.system(size: cellSize / 2)).frame(width: cellSize, height: cellSize).transition(.opacity)
+                            Image(systemName: "plus.square").font(.system(size: cellSize / 2)).frame(width: cellSize, height: cellSize).frame(maxHeight: .infinity, alignment: .top).transition(.opacity)
                         }
                     }).buttonStyle(PlainButtonStyle())
                 }

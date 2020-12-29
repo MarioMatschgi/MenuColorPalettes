@@ -11,6 +11,7 @@ struct PalettePreviewView: View {
     @Binding var palette: Palette
     @Binding var colNum: Int
     @Binding var cellSize: CGFloat
+    @Binding var cellSizeRadius: CGFloat
     
     var body: some View {
         VStack {
@@ -20,7 +21,7 @@ struct PalettePreviewView: View {
                         Rectangle().fill(palette.palColors[idx].colColor.color).aspectRatio(1, contentMode: .fit)
                     }
                 })
-            }.frame(width: cellSize, height: cellSize)
+            }.frame(width: cellSize, height: cellSize).cornerRadius(cellSize / 100 * cellSizeRadius)
             
             Text(palette.palName)
         }

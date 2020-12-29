@@ -49,7 +49,7 @@ struct MenuItemView: View {
                                     MenuItemModifyView(newPaletteName: $newPaletteName, modifyType: $modifyType, modifyColorIdx: $modifyColorIdx, palettes: $palettesOO.palettes)
                                 }
                                 else {
-                                    Image(systemName: "plus.square").font(.system(size: gridCellSize / 2)).frame(width: gridCellSize, height: gridCellSize)
+                                    Image(systemName: "plus.square").font(.system(size: gridCellSize / 2)).frame(width: gridCellSize, height: gridCellSize).frame(maxHeight: .infinity, alignment: .top)
                                 }
                             }).buttonStyle(PlainButtonStyle())
                         }
@@ -60,7 +60,7 @@ struct MenuItemView: View {
                                 }
                                 else {
                                     Button(action: { Manager.ViewPalette(pal: $palettesOO.palettes[idx]) }, label: {
-                                        PalettePreviewView(palette: binding, colNum: $cellColCount, cellSize: $gridCellSize).cornerRadius(gridCellSize / 100 * gridCellRadius).contextMenu(ContextMenu(menuItems: {
+                                        PalettePreviewView(palette: binding, colNum: $cellColCount, cellSize: $gridCellSize, cellSizeRadius: $gridCellRadius).contextMenu(ContextMenu(menuItems: {
                                             Button(action: {
                                                 newPaletteName = palettesOO.palettes[idx].palName
                                                 modifyColorIdx = idx
