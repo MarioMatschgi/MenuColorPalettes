@@ -3,8 +3,14 @@
 > For more information and the app-download take a look at my website [www.programario.at](https://www.programario.at/projects/mac-apps/menu-color-palette.php) 
 Found a bug? [Contact me](https://www.programario.at/#contact) 
 
-## Overview
+##### Table of Contents  
+[Headers](#headers)  
+[Emphasis](#emphasis)  
+...snip...    
+<a name="headers"/>
+## Headers
 
+## Overview
 ### What is MenuColorPalettes?
 MenuColorPalettes is a utility app for macOS for managing your colors. Whether you are a webdeveloper, gamedeveloper or UI designer, colors are very important and can be quiet frustrating to manage and organize. THIS is where MenuColorPalettes comes in.
 
