@@ -22,6 +22,7 @@ MenuColorPalettes is structured in color-palettes and colors.
 
 ## Screenshots
 > For more screenshots visit the  [www.programario.at/projects/mac-apps/menu-color-palette.php](https://www.programario.at/projects/mac-apps/menu-color-palette.php#screenshots-screenshots)
+
 ![palette-view](https://www.programario.at/projects/mac-apps/Images/palette-view.png)
 ![copy-formats](https://www.programario.at/projects/mac-apps/Images/copy-formats.png)
 
