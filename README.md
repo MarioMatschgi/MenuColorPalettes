@@ -20,7 +20,7 @@ Mac computer with macOS 11 (Big Sur) or higher
 
 ### Features?
 MenuColorPalettes is accessable via the macOS menubar. Just click the little MenuColorPalettes icon and a popover with all of your palettes will appear. Leftclick to view as many palettes as you desire.
-![menu-item-view](menu-item-view)
+![menu-item-view][menu-item-view]
 > See the full page with more screenshots @ [www.programario.at/projects/mac-apps/menu-color-palette.php](https://www.programario.at/projects/mac-apps/menu-color-palette.php#screenshots-screenshots)
 
 MenuColorPalettes is structured in color-palettes and colors.
