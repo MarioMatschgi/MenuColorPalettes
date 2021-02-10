@@ -4,11 +4,11 @@
 Found a bug? [Contact me](https://www.programario.at/#contact) 
 
 | Table of content  |
-| :--: |
+| -- |
 | [Overview](#overview) |
-| Screenshots](#screenshots) |
-| Tutorial](#tutorial) |
-| Download & Installation](#download--installation) |
+| [Screenshots](#screenshots) |
+| [Tutorial](#tutorial) |
+| [Download & Installation](#download--installation) |
 
 ## Overview
 ### What is MenuColorPalettes?
