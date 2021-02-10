@@ -26,8 +26,8 @@ MenuColorPalettes is structured in color-palettes and colors.
 | ![palette-view](https://www.programario.at/projects/mac-apps/Images/palette-view.png) | 
 |:--:| 
 | *Palette viewing window* |
-| ![copy-formats](https://www.programario.at/projects/mac-apps/Images/copy-formats.png) | 
 
+| ![copy-formats](https://www.programario.at/projects/mac-apps/Images/copy-formats.png) | 
 |:--:| 
 | *Color formats to copy* |
 
