@@ -36,18 +36,17 @@ MenuColorPalettes is structured in color-palettes and colors.
 ## Screenshots
 > For more screenshots visit [www.programario.at/projects/mac-apps/menu-color-palette.php](https://www.programario.at/projects/mac-apps/menu-color-palette.php#screenshots)
 
-| ![menu-item-view](menu-item-view) |
+| ![menu-item-view][menu-item-view] |
 |:--:|
 | *Menu item view* |
 
-| ![palette-view](palette-view) |
+| ![palette-view][palette-view] |
 |:--:|
 | *Palette viewing window* |
 
-| ![copy-formats](copy-formats) |
+| ![copy-formats][copy-formats] |
 |:--:| 
 | *Color formats to copy* |
-![alt text][logo]
 
 <hr>
 
@@ -82,4 +81,3 @@ Made with ❤️ by me, Mario Elsnig © 2020
 [menu-item-view]: https://www.programario.at/projects/mac-apps/Images/menu-item-view.png "Menu item view"
 [palette-view]: https://www.programario.at/projects/mac-apps/Images/palette-view.png "Palette view"
 [copy-formats]: https://www.programario.at/projects/mac-apps/Images/copy-formats.png "Copy formats"
-[logo]: https://github.com/adam-p/markdown-here/raw/master/src/common/images/icon48.png "Logo Title Text 2"
