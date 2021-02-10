@@ -20,7 +20,7 @@ Mac computer with macOS 11 (Big Sur) or higher
 
 ### Features?
 MenuColorPalettes is accessable via the macOS menubar. Just click the little MenuColorPalettes icon and a popover with all of your palettes will appear. Leftclick to view as many palettes as you desire.
-![menu-item-view](https://www.programario.at/projects/mac-apps/Images/menu-item-view.png)
+![menu-item-view](menu-item-view)
 > See the full page with more screenshots @ [www.programario.at/projects/mac-apps/menu-color-palette.php](https://www.programario.at/projects/mac-apps/menu-color-palette.php#screenshots-screenshots)
 
 MenuColorPalettes is structured in color-palettes and colors.
@@ -36,11 +36,15 @@ MenuColorPalettes is structured in color-palettes and colors.
 ## Screenshots
 > For more screenshots visit [www.programario.at/projects/mac-apps/menu-color-palette.php](https://www.programario.at/projects/mac-apps/menu-color-palette.php#screenshots)
 
-| ![palette-view](https://www.programario.at/projects/mac-apps/Images/palette-view.png) | 
-|:--:| 
+| ![menu-item-view](menu-item-view) |
+|:--:|
+| *Menu item view* |
+
+| ![palette-view](palette-view) | 
+|:--:|
 | *Palette viewing window* |
 
-| ![copy-formats](https://www.programario.at/projects/mac-apps/Images/copy-formats.png) | 
+| ![copy-formats](copy-formats) | 
 |:--:| 
 | *Color formats to copy* |
 
@@ -72,3 +76,8 @@ Download the .dmg file. Double-click (or right-click and choose "open"). Drag an
 This project is licenced under the [MIT-License](https://choosealicense.com/licenses/mit/).
 
 Made with ❤️ by me, Mario Elsnig © 2020
+
+
+[menu-item-view]: https://www.programario.at/projects/mac-apps/Images/menu-item-view.png "Menu item view"
+[palette-view]: https://www.programario.at/projects/mac-apps/Images/palette-view.png "Palette view"
+[copy-formats](https://www.programario.at/projects/mac-apps/Images/copy-formats.png)
