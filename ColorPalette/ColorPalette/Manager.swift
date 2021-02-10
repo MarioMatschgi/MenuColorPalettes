@@ -11,8 +11,8 @@ import SwiftUI
 class Manager {
     static var VERSION = ""
     static let COPYRIGHT_DATE = "2020"
-    static let PROJECT_PAGE = "https://www.programario.at"
-    static let TUTORIAL_PAGE = "https://www.programario.at"
+    static let PROJECT_PAGE = "https://www.programario.at/projects/mac-apps/menu-color-palette.php"
+    static let TUTORIAL_PAGE = "https://www.programario.at/projects/mac-apps/menu-color-palette.php#tutorial"
     static let GITHUB_PAGE = "https://github.com/MarioMatschgi/MenuColorPalettes"
     
     static let k_loadedDefaultPalettes = "loadedDefaultPalettes"
