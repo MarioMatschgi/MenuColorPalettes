@@ -3,12 +3,12 @@
 > For more information and the app-download take a look at my website [www.programario.at](https://www.programario.at/projects/mac-apps/menu-color-palette.php) 
 Found a bug? [Contact me](https://www.programario.at/#contact) 
 
-##### Table of Contents  
-[Headers](#headers)  
-[Emphasis](#emphasis)  
-...snip...    
-<a name="headers"/>
-## Headers
+| Table of content  |
+| :--: |
+| [Overview](#overview) |
+| Screenshots](#screenshots) |
+| Tutorial](#tutorial) |
+| Download & Installation](#download--installation) |
 
 ## Overview
 ### What is MenuColorPalettes?
