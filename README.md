@@ -40,11 +40,11 @@ MenuColorPalettes is structured in color-palettes and colors.
 |:--:|
 | *Menu item view* |
 
-| ![palette-view](palette-view) | 
+| ![palette-view](palette-view) |
 |:--:|
 | *Palette viewing window* |
 
-| ![copy-formats](copy-formats) | 
+| ![copy-formats](copy-formats) |
 |:--:| 
 | *Color formats to copy* |
 
@@ -80,4 +80,4 @@ Made with ❤️ by me, Mario Elsnig © 2020
 
 [menu-item-view]: https://www.programario.at/projects/mac-apps/Images/menu-item-view.png "Menu item view"
 [palette-view]: https://www.programario.at/projects/mac-apps/Images/palette-view.png "Palette view"
-[copy-formats](https://www.programario.at/projects/mac-apps/Images/copy-formats.png)
+[copy-formats]: https://www.programario.at/projects/mac-apps/Images/copy-formats.png "Copy formats"
