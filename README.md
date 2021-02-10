@@ -8,8 +8,8 @@ MenuColorPalettes is a utility app for macOS for managing your colors. Whether y
 ## What can you do with MenuColorPalettes?
 MenuColorPalettes is structured in color-palettes and colors.
 * ColorPalettes: ColorPalettes are - as the name suggests - groups of colors
-⋅⋅* ColorPalettes can be imported from websites.
-⋅⋅ > AS
+    * ColorPalettes can be imported from websites.
+    > Currently the only website supported is [flatuicolors.com](https://flatuicolors.com)
 * Colors: Colors are defined with a name and contain a color
 
 <hr>
