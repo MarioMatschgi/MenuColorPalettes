@@ -9,6 +9,7 @@ Found a bug? [Contact me](https://www.programario.at/#contact)
 | [Screenshots](#screenshots) |
 | [Tutorial](#tutorial) |
 | [Download & Installation](#download--installation) |
+| [Licence](#licence) |
 
 ## Overview
 ### What is MenuColorPalettes?
