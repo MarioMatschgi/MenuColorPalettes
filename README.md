@@ -33,7 +33,7 @@ MenuColorPalettes is structured in color-palettes and colors.
     * ColorPalettes pop out into a seperate window which floats above everything so you can access your colors easily
 * Colors: Colors are defined with a name and contain a color
     * Colors can be copied in many different formats ("r, g, b", "r, g, b, a", "hex" and more)
-    * To copy a color leftcklick it and it will get copied in the chosen format to your clipboard ready to paste
+    * To copy a color leftclick it and it will get copied in the chosen format to your clipboard ready to paste
     * To prevent focussing the window hold the Command-key (CMD} [This is a macOS thing, so it works everywhere, not just MenuColorPalettes]
 
 <hr>
