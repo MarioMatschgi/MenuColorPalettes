@@ -3,6 +3,7 @@
 > For more information and the app-download take a look at my website [www.programario.at](https://www.programario.at/projects/mac-apps/menu-color-palette.php) 
 Found a bug? [Contact me](https://www.programario.at/#contact) 
 
+## Table of content
 | Table of content  |
 | -- |
 | [Overview](#overview) |
@@ -10,6 +11,8 @@ Found a bug? [Contact me](https://www.programario.at/#contact)
 | [Tutorial](#tutorial) |
 | [Download & Installation](#download--installation) |
 | [Licence](#licence) |
+
+<hr>
 
 ## Overview
 ### What is MenuColorPalettes?
@@ -30,6 +33,8 @@ MenuColorPalettes is structured in color-palettes and colors.
     * ColorPalettes pop out into a seperate window which floats above everything so you can access your colors easily
 * Colors: Colors are defined with a name and contain a color
     * Colors can be copied in many different formats ("r, g, b", "r, g, b, a", "hex" and more)
+    * To copy a color leftcklick it and it will get copied in the chosen format to your clipboard ready to paste
+    * To prevent focussing the window hold the Command-key (CMD} [This is a macOS thing, so it works everywhere, not just MenuColorPalettes]
 
 <hr>
 
