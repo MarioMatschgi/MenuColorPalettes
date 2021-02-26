@@ -21,7 +21,7 @@ MenuColorPalettes is a utility app for macOS for managing your colors. Whether y
 ### Requirements
 Mac computer with macOS 11 (Big Sur) or higher
 
-### Features?
+### Features
 MenuColorPalettes is accessable via the macOS menubar. Just click the little MenuColorPalettes icon and a popover with all of your palettes will appear. Leftclick to view as many palettes as you desire.
 
 ![menu-item-view][menu-item-view]
