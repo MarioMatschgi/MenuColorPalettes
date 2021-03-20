@@ -25,7 +25,7 @@ Mac computer with macOS 11 (Big Sur) or higher
 MenuColorPalettes is accessable via the macOS menubar. Just click the little MenuColorPalettes icon and a popover with all of your palettes will appear. Leftclick to view as many palettes as you desire.
 
 ![menu-item-view][menu-item-view]
-> See the full page with more screenshots @ [www.programario.at/projects/mac-apps/menu-color-palette.php][screenshots]
+> See the full page with more screenshots @ [www.programario.at/projects/mac-apps/menu-color-palettes][screenshots]
 
 MenuColorPalettes is structured in color-palettes and colors.
 * ColorPalettes: ColorPalettes are - as the name suggests - groups of colors
@@ -40,7 +40,7 @@ MenuColorPalettes is structured in color-palettes and colors.
 <hr>
 
 ## Screenshots
-> See the full page with more screenshots @ [www.programario.at/projects/mac-apps/menu-color-palette][screenshots]
+> See the full page with more screenshots @ [www.programario.at/projects/mac-apps/menu-color-palettes][screenshots]
 
 | ![menu-item-view][menu-item-view] |
 |:--:|
@@ -64,7 +64,7 @@ Below you can find a guide which helps you getting started and some tips and tri
 * Create colors by clicking the "+" icon. Edit/delete colors by right-clicking a color. Left-click to copy the color (Pro-Tip: hold CMD while left-clicking to prevent focusing the window). Change the format the color should be copied in with the "copy format" dropdown in the viewer window.
 * To import colors view the palette you want your colors to be imported to and click "Show import". Paste your code into the appropriate text-field
     For FlatUIColors: Go to your FlatUIColors palette. Next view the page sourcecode (Process differs for different browsers) by right-clicking and choosing something like "view element" or "element information" or "view source". Then copy the HTML code of the div with the class "colors" - thats the code you have to paste into the text-field "FlatUIColors code".
-    ![copy-div-colors](https://www.programario.at/projects/mac-apps/Images/copy-div-colors.png)
+    ![copy-div-colors](https://programario.at/lang/en/projects/mac-apps/Images/menu-color-palettes/copy-div-colors.png)
 
 <hr>
 
@@ -74,7 +74,7 @@ Below is a guide for installation and download links for every version. I hope t
 Download the .dmg file. Double-click (or right-click and choose "open"). Drag and drop the .app to the Applications folder.
 
 ### Download
-> For the download visit  [www.programario.at/projects/mac-apps/menu-color-palette.php][download]
+> For the download visit  [www.programario.at/projects/mac-apps/menu-color-palettes][download]
 
 <hr>
 
@@ -85,12 +85,12 @@ Made with ❤️ by me, Mario Elsnig © 2020
 
 
 <!--- LINKS -->
-[contact]: https://programario.at/#contact_me-intro
-[website_article]: https://programario.at/projects/mac-apps/menu-color-palette
-[screenshots]: https://www.programario.at/projects/mac-apps/menu-color-palette#screenshots
-[download]: https://programario.at/projects/mac-apps/menu-color-palette#download__installation-download
+[contact]:              https://programario.at/#contact_me-intro
+[website_article]:  https://programario.at/projects/mac-apps/menu-color-palettes
+[screenshots]:      https://programario.at/projects/mac-apps/menu-color-palettes#screenshots
+[download]:         https://programario.at/projects/mac-apps/menu-color-palettes#download__installation-download
 
 <!--- IMAGES -->
-[menu-item-view]: https://www.programario.at/projects/mac-apps/Images/menu-item-view.png "Menu item view"
-[palette-view]: https://www.programario.at/projects/mac-apps/Images/palette-view.png "Palette view"
-[copy-formats]: https://www.programario.at/projects/mac-apps/Images/copy-formats.png "Copy formats"
+[menu-item-view]:   https://programario.at/lang/en/projects/mac-apps/Images/menu-color-palettes/menu-item-view.png "Menu item view"
+[palette-view]:         https://programario.at/lang/en/projects/mac-apps/Images/menu-color-palettes/palette-view.png        "Palette view"
+[copy-formats]:       https://programario.at/lang/en/projects/mac-apps/Images/menu-color-palettes/copy-formats.png      "Copy formats"
