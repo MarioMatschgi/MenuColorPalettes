@@ -40,8 +40,6 @@ MenuColorPalettes is structured in color-palettes and colors.
 <hr>
 
 ## Screenshots
-> See the full page with more screenshots @ [www.programario.at/projects/mac-apps/menu-color-palettes][screenshots]
-
 | ![menu-item-view][menu-item-view] |
 |:--:|
 | *Menu item view* |
