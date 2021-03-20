@@ -1,7 +1,7 @@
 # MenuColorPalettes
 
-> For more information and the app-download take a look at my website [www.programario.at](https://www.programario.at/projects/mac-apps/menu-color-palette.php) 
-Found a bug? [Contact me](https://www.programario.at/#contact) 
+> For more information and the app-download take a look at my website [www.programario.at][website_article]
+Found a bug? [Contact me][contact] 
 
 ## Table of content
 | Table of content  |
@@ -25,7 +25,7 @@ Mac computer with macOS 11 (Big Sur) or higher
 MenuColorPalettes is accessable via the macOS menubar. Just click the little MenuColorPalettes icon and a popover with all of your palettes will appear. Leftclick to view as many palettes as you desire.
 
 ![menu-item-view][menu-item-view]
-> See the full page with more screenshots @ [www.programario.at/projects/mac-apps/menu-color-palette.php](https://www.programario.at/projects/mac-apps/menu-color-palette.php#screenshots-screenshots)
+> See the full page with more screenshots @ [www.programario.at/projects/mac-apps/menu-color-palette.php][screenshots]
 
 MenuColorPalettes is structured in color-palettes and colors.
 * ColorPalettes: ColorPalettes are - as the name suggests - groups of colors
@@ -40,7 +40,7 @@ MenuColorPalettes is structured in color-palettes and colors.
 <hr>
 
 ## Screenshots
-> For more screenshots visit [www.programario.at/projects/mac-apps/menu-color-palette.php](https://www.programario.at/projects/mac-apps/menu-color-palette.php#screenshots)
+> See the full page with more screenshots @ [www.programario.at/projects/mac-apps/menu-color-palette][screenshots]
 
 | ![menu-item-view][menu-item-view] |
 |:--:|
@@ -57,8 +57,7 @@ MenuColorPalettes is structured in color-palettes and colors.
 <hr>
 
 ## Tutorial
-> For a more detailed tutorial visit  [www.programario.at/projects/mac-apps/menu-color-palette.php](https://www.programario.at/projects/mac-apps/menu-color-palette.php#tutorial)
-
+Below you can find a guide which helps you getting started and some tips and tricks.
 * Download the app
 * Click the icon in the macOS menubar to reveal the menu-item-view-popover
 * Create palettes by clicking the "+" icon. Rename/delete palettes by right-clicking a palette. If you rename a palette make sure to close the view window first. View a palette by left-clicking.
@@ -70,11 +69,12 @@ MenuColorPalettes is structured in color-palettes and colors.
 <hr>
 
 ## Download & Installation
+Below is a guide for installation and download links for every version. I hope that you enjoy my work, if you want to report a bug just [contact me][contact].
 ### Installation
 Download the .dmg file. Double-click (or right-click and choose "open"). Drag and drop the .app to the Applications folder.
 
 ### Download
-> For the download visit  [www.programario.at/projects/mac-apps/menu-color-palette.php](https://www.programario.at/projects/mac-apps/menu-color-palette.php#download-download)
+> For the download visit  [www.programario.at/projects/mac-apps/menu-color-palette.php][download]
 
 <hr>
 
@@ -84,6 +84,13 @@ This project is licenced under the [MIT-License](https://choosealicense.com/lice
 Made with ❤️ by me, Mario Elsnig © 2020
 
 
+<!--- LINKS -->
+[contact]: https://programario.at/#contact_me-intro
+[website_article]: https://programario.at/projects/mac-apps/menu-color-palette
+[screenshots]: https://www.programario.at/projects/mac-apps/menu-color-palette#screenshots
+[download]: https://programario.at/projects/mac-apps/menu-color-palette#download__installation-download
+
+<!--- IMAGES -->
 [menu-item-view]: https://www.programario.at/projects/mac-apps/Images/menu-item-view.png "Menu item view"
 [palette-view]: https://www.programario.at/projects/mac-apps/Images/palette-view.png "Palette view"
 [copy-formats]: https://www.programario.at/projects/mac-apps/Images/copy-formats.png "Copy formats"
